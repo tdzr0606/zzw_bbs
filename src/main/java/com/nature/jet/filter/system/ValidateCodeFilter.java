@@ -1,6 +1,6 @@
 package com.nature.jet.filter.system;
 
-import com.yz.jet.utils.Fields;
+import com.nature.jet.utils.Fields;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

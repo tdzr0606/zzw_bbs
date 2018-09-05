@@ -1,14 +1,9 @@
 package com.nature.jet.component.system;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.yz.jet.controller.system.IndexController;
-import com.yz.jet.controller.wx.WxController;
-import com.yz.jet.interceptor.MethodLog;
-import com.yz.jet.pojo.web.Log;
-import com.yz.jet.pojo.web.User;
-import com.yz.jet.service.web.LogService;
-import com.yz.jet.utils.Fields;
-import com.yz.jet.utils.JsonUtils;
+import com.nature.jet.controller.system.IndexController;
+import com.nature.jet.interceptor.MethodLog;
+import com.nature.jet.utils.JsonUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -36,8 +31,6 @@ public class LogAspect
 {
     @Autowired
     HttpServletRequest request;
-    @Autowired
-    LogService logService;
 
     /**
      * 方法完成 切面
@@ -50,56 +43,56 @@ public class LogAspect
      * @author:竺志伟
      * @date :2018-07-04 11:19:56
      */
-    @AfterReturning(value = "execution(* com.yz.jet.controller..*(..)) && @annotation(methodLog)",
+    @AfterReturning(value = "execution(* com.nature.jet.controller..*(..)) && @annotation(methodLog)",
             argNames = "joinPoint, " + "methodLog,result", returning = "result")
     public void methodAfterReturning(JoinPoint joinPoint, MethodLog methodLog, Object result) throws Throwable
     {
-        Log log = new Log();
-        //返回目标对象
-        Object target = joinPoint.getTarget();
-        Class targetClass = Class.forName(target.getClass().getName());
-        //返回当前连接点签名  调用的方法名称
-        String methodName = joinPoint.getSignature().getName();
-
-        MethodLog methodLogTemp = null;
-        Method[] methods = targetClass.getMethods();
-        for(Method method : methods)
-        {
-            if(method.getName().equals(methodName))
-            {
-                methodLogTemp = method.getAnnotation(MethodLog.class);
-                break;
-            }
-        }
-
-        // 参数
-        String param = this.getParam();
-
-        log.setIp(this.getRequestIP());
-        log.setClassName(target.getClass().getName());
-        log.setMethodName(methodName);
-        log.setParamsStr(param);
-        log.setResultStr(JsonUtils.toJson(result, JsonInclude.Include.ALWAYS));
-        log.setLogTime(new Timestamp(new Date().getTime()));
-        log.setNote((null != methodLogTemp) ? methodLogTemp.description() : "");
-        User user = (User) request.getSession().getAttribute(Fields.SESSION_LOGIN);
-        if(null != user)
-        {
-            log.setLoginName(user.getLoginName());
-        }
-        else
-        {
-            user = (User) request.getSession().getAttribute(Fields.SESSION_LOGIN_WX);
-            if(null != user)
-            {
-                log.setLoginName(user.getLoginName());
-            }
-            else
-            {
-                log.setLoginName("");
-            }
-        }
-        logService.addNew(log);
+        //        Log log = new Log();
+        //        //返回目标对象
+        //        Object target = joinPoint.getTarget();
+        //        Class targetClass = Class.forName(target.getClass().getName());
+        //        //返回当前连接点签名  调用的方法名称
+        //        String methodName = joinPoint.getSignature().getName();
+        //
+        //        MethodLog methodLogTemp = null;
+        //        Method[] methods = targetClass.getMethods();
+        //        for(Method method : methods)
+        //        {
+        //            if(method.getName().equals(methodName))
+        //            {
+        //                methodLogTemp = method.getAnnotation(MethodLog.class);
+        //                break;
+        //            }
+        //        }
+        //
+        //        // 参数
+        //        String param = this.getParam();
+        //
+        //        log.setIp(this.getRequestIP());
+        //        log.setClassName(target.getClass().getName());
+        //        log.setMethodName(methodName);
+        //        log.setParamsStr(param);
+        //        log.setResultStr(JsonUtils.toJson(result, JsonInclude.Include.ALWAYS));
+        //        log.setLogTime(new Timestamp(new Date().getTime()));
+        //        log.setNote((null != methodLogTemp) ? methodLogTemp.description() : "");
+        //        User user = (User) request.getSession().getAttribute(Fields.SESSION_LOGIN);
+        //        if(null != user)
+        //        {
+        //            log.setLoginName(user.getLoginName());
+        //        }
+        //        else
+        //        {
+        //            user = (User) request.getSession().getAttribute(Fields.SESSION_LOGIN_WX);
+        //            if(null != user)
+        //            {
+        //                log.setLoginName(user.getLoginName());
+        //            }
+        //            else
+        //            {
+        //                log.setLoginName("");
+        //            }
+        //        }
+        //        logService.addNew(log);
     }
 
     /**
@@ -155,9 +148,13 @@ public class LogAspect
                 for(int i = 0; i < values.length; i++)
                 {
                     if(value == null)
+                    {
                         value = (values[i] == null ? "" : values[i]);
+                    }
                     else
+                    {
                         value += "," + (values[i] == null ? "" : values[i]);
+                    }
                 }
             }
             else
