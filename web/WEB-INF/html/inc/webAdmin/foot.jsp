@@ -69,12 +69,12 @@
                 });
             },
             //退出登陆
-            loginOut: function ()
+            logout: function ()
             {
                 layer.open({
                     type: 1
                     , area: ['300px', '180px']
-                    , id: 'loginOutAccept' //防止重复弹出
+                    , id: 'logoutAccept' //防止重复弹出
                     , content: '<div style="padding: 20px 30px;">是否退出当前登录?</div>'
                     , btn: ['确定', '取消']
                     , btnAlign: 'c' //按钮居中
@@ -82,7 +82,7 @@
                     , yes: function ()
                     {
                         layer.closeAll();
-                        window.location.href = "/webAdmin/logOut";
+                        window.location.href = "/webAdmin/logout";
                     }
                 });
             }

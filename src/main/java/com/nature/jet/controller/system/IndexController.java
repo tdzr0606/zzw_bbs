@@ -119,7 +119,7 @@ public class IndexController extends BaseController
     public String webAdminLogOut()
     {
         super.removeWebLogin();
-        return "redirect:/webAdmin/";
+        return "redirect:/webAdmin";
     }
 
 }
