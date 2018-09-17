@@ -1,6 +1,7 @@
 package com.nature.jet.controller.system;
 
 import com.nature.jet.component.system.CommonResult;
+import com.nature.jet.pojo.web.User;
 import com.nature.jet.utils.Fields;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,13 +12,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.ContextLoader;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
 public abstract class BaseController
 {
+    @Autowired
+    HttpServletRequest request;
     @Autowired
     CommonResult commonResult;
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -136,5 +138,20 @@ public abstract class BaseController
         return ContextLoader.getCurrentWebApplicationContext().getServletContext().getRealPath("/");
     }
 
+
+    protected void removeBbsLogin()
+    {
+        request.getSession().removeAttribute(Fields.SESSION_BBS_LOGIN);
+    }
+
+    protected void removeWebLogin()
+    {
+        request.getSession().removeAttribute(Fields.SESSION_WEB_LOGIN);
+    }
+
+    protected void saveWebLogin(User user)
+    {
+        request.getSession().setAttribute(Fields.SESSION_WEB_LOGIN,user);
+    }
 
 }

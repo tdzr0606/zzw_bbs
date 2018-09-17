@@ -9,26 +9,26 @@
     <!-- 用注解来实现事务管理 -->
     <tx:annotation-driven transaction-manager="jdbcTransactionManager"/>
 
-    <bean id="c3p0" class="com.alibaba.druid.pool.DruidDataSource"
+    <bean id="druid" class="com.alibaba.druid.pool.DruidDataSource"
           destroy-method="close">
-        <property name="driverClassName" value="${c3p0.driverClass}"/>
+        <property name="driverClassName" value="${druid.driverClass}"/>
         <property name="url"
-                  value="${c3p0.jdbcUrl}"/>
-        <property name="username" value="${c3p0.user}"/>
-        <property name="password" value="${c3p0.password}"/>
-        <property name="initialSize" value="${c3p0.initialPoolSize}"/>
-        <property name="minIdle" value="${c3p0.minPoolSize}"/>
-        <property name="maxActive" value="${c3p0.maxPoolSize}"/>
+                  value="${druid.jdbcUrl}"/>
+        <property name="username" value="${druid.user}"/>
+        <property name="password" value="${druid.password}"/>
+        <property name="initialSize" value="${druid.initialPoolSize}"/>
+        <property name="minIdle" value="${druid.minPoolSize}"/>
+        <property name="maxActive" value="${druid.maxPoolSize}"/>
     </bean>
 
     <bean id="jdbcTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="c3p0"/>
+        <property name="dataSource" ref="druid"/>
     </bean>
 
 
     <!-- 创建SqlSessionFactory，同时指定数据源 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="c3p0"/>
+        <property name="dataSource" ref="druid"/>
         <!-- 加载全局配置文件 -->
         <property name="configLocation" value="classpath:mapper/config/mybatis-config.xml"/>
         <!-- 自动扫描 mapper.xml 配置文件 -->

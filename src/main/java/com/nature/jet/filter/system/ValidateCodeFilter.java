@@ -40,7 +40,7 @@ public class ValidateCodeFilter implements Filter
         String vCodeKey = request.getParameter("codeKey");
         if(StringUtils.isBlank(vCodeKey))
         {
-            vCodeKey = Fields.CODE_SESSION_LOGIN;
+            vCodeKey = Fields.SESSION_CODE;
         }
         response.setContentType("image/jpeg");//设置相应类型,告诉浏览器输出的内容为图片
         response.setHeader("Pragma", "No-cache");//设置响应头信息，告诉浏览器不要缓存此内容
