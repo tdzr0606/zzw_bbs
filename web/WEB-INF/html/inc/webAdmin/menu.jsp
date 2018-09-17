@@ -2,7 +2,8 @@
 <%@ taglib prefix="c" uri="/WEB-INF/tld/c.tld" %>
 <%--顶部菜单--%>
 <div class="layui-header">
-    <div class="layui-logo"><img src="/design/images/logo_title.png" width="318" height="56">
+    <div class="layui-logo" style="padding: 0px;"><img src="/design/webAdmin/images/logo.png" style="width: 318px;height:
+    56px;">
     </div>
     <!-- 头部区域（可配合layui已有的水平导航） -->
     <ul class="layui-nav layui-layout-left">

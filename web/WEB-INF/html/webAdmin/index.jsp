@@ -25,7 +25,7 @@
         <div class="default-cont-tt">
         </div>
         <div class="default-cont-admin">
-            <p>您好，<i class="admin-impt">${sessionScope.loginUser.name}</i></p>
+            <p>您好，<i class="admin-impt">${sessionScope.webUser.loginName}</i></p>
             <p>今天是<%= Tools.getFormatDate(new Date(), "yyyy年MM月dd日")%>，欢迎使用系统</p>
         </div>
         <div class="default-cont-wrapper">
