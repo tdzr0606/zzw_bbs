@@ -65,10 +65,15 @@ public class UserController extends BaseController
      */
     @RequestMapping(value = "/webAdmin/user/new")
     @ResponseBody
-    @MethodLog(description = "数据添加")
+    @MethodLog(description = "管理员添加")
     public CommonResult add(User user)
     {
-        return resultBoolWrapper(userService.addNew(user), "信息创建成功", "信息创建失败", null);
+        if(userService.checkLoginName(user.getLoginName()))
+        {
+            user.setLoginPass(DigestUtils.md5Hex(user.getLoginPass()));
+            return resultBoolWrapper(userService.addNew(user), "信息创建成功", "信息创建失败", null);
+        }
+        return resultFailsWrapper("当前登录名已经存在!", null);
     }
 
     /**
@@ -79,9 +84,16 @@ public class UserController extends BaseController
      */
     @RequestMapping(value = "/webAdmin/user/modify")
     @ResponseBody
-    @MethodLog(description = "数据修改")
+    @MethodLog(description = "管理员修改")
     public CommonResult modify(User user)
     {
+        User oldUser = userService.getInfoById(user.getId());
+        String nowPass = user.getLoginPass();
+        // 密码改变
+        if(!(oldUser.getLoginPass().equals(nowPass) || oldUser.getLoginPass().equals(DigestUtils.md5Hex(nowPass))))
+        {
+            user.setLoginPass(DigestUtils.md5Hex(nowPass));
+        }
         return resultBoolWrapper(userService.modify(user), "信息修改成功", "信息修改失败", null);
     }
 
@@ -93,7 +105,7 @@ public class UserController extends BaseController
      */
     @RequestMapping(value = "/webAdmin/user/delete")
     @ResponseBody
-    @MethodLog(description = "数据删除")
+    @MethodLog(description = "管理员删除")
     public CommonResult delete(@RequestParam(value = "ids", required = true, defaultValue = "0") String ids)
     {
         userService.deleteByIds(ids.split(","));
@@ -114,6 +126,23 @@ public class UserController extends BaseController
     }
 
     /**
+     * 启用/禁用
+     * Use common result.
+     *
+     * @param ids the ids
+     * @return the common result
+     * @author:竺志伟
+     * @date :2018-09-18 10:24:46
+     */
+    @RequestMapping(value = "/webAdmin/user/use")
+    @ResponseBody
+    @MethodLog(description = "管理员启用/禁用")
+    public CommonResult use(@RequestParam(value = "ids", required = true, defaultValue = "") String ids)
+    {
+        return resultBoolWrapper(userService.use(ids.split(",")), "信息启用/禁用完成", "信息启用/禁用完成", null);
+    }
+
+    /**
      * 密码修改
      * Pass modify common result.
      *
@@ -125,6 +154,7 @@ public class UserController extends BaseController
      */
     @RequestMapping(value = "/webAdmin/user/passModify")
     @ResponseBody
+    @MethodLog(description = "管理员密码修改")
     public CommonResult passModify(@RequestParam(value = "loginPass", required = true, defaultValue = "") String loginPass,
                                    @RequestParam(value = "loginPassN", required = true, defaultValue = "") String loginPassN)
     {

@@ -67,4 +67,17 @@
         update web_user set loginPass = #{loginPass} where id = #{id}
     </update>
 
+    <!-- 验证登录名 -->
+    <select id="checkLoginName" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select count(1) from web_user where loginName = #{loginName}
+    </select>
+
+    <!-- 启用/禁用 -->
+    <update id="use" parameterType="java.util.Arrays">
+        UPDATE web_user set isUse=(isUse+1)%2 where id in
+        <foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+            ${item}
+        </foreach>
+    </update>
+
 </mapper>

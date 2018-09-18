@@ -1,0 +1,59 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nature.jet.mapper.web.LogsMapper">
+
+    <!--基础 表字段定义 -->
+    <sql id="basicColumn">
+        note,createTime,paramStr,ip,loginName,methodName,className,id,resultStr
+    </sql>
+
+    <!-- 查询所有数据 -->
+    <select id="list" resultType="Logs" parameterType="java.lang.String">
+        SELECT
+        <include refid="basicColumn"/>
+        FROM web_logs
+        <where>
+            <if test="key != null and key != ''">
+                note LIKE CONCAT(CONCAT('%',#{key}),'%')
+                or paramStr LIKE CONCAT(CONCAT('%',#{key}),'%')
+                or ip LIKE CONCAT(CONCAT('%',#{key}),'%')
+                or loginName LIKE CONCAT(CONCAT('%',#{key}),'%')
+                or methodName LIKE CONCAT(CONCAT('%',#{key}),'%')
+                or className LIKE CONCAT(CONCAT('%',#{key}),'%')
+                or resultStr LIKE CONCAT(CONCAT('%',#{key}),'%')
+            </if>
+        </where>
+        ORDER BY id DESC,createTime desc
+    </select>
+
+    <!-- 根据ID查询数据 -->
+    <select id="findById" resultType="Logs" parameterType="java.lang.Integer">
+        SELECT <include refid="basicColumn"></include> FROM web_logs WHERE id = #{id}
+    </select>
+
+    <!-- 新建 -->
+    <insert id="add" parameterType="Logs" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO web_logs ( note,createTime,paramStr,ip,loginName,methodName,className,resultStr ) 
+        VALUES ( #{note},#{createTime},#{paramStr},#{ip},#{loginName},#{methodName},#{className},#{resultStr} ) 
+   </insert>
+
+    <!-- 修改-->
+    <update id="modify" parameterType="Logs">
+        UPDATE web_logs SET note = #{note},createTime = #{createTime},paramStr = #{paramStr},ip = #{ip},loginName = #{loginName},methodName = #{methodName},className = #{className},resultStr = #{resultStr}
+        WHERE  id = #{id} 
+    </update>
+
+    <!-- 删除 -->
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        DELETE FROM web_logs WHERE  id = #{id}
+    </delete>
+
+    <!-- 批量删除 -->
+    <delete id="deleteByIds" parameterType="java.util.Arrays">
+        DELETE FROM web_logs WHERE id IN
+        <foreach collection="ids" item="item" index="index" open="(" separator="," close=")">
+            ${item}
+        </foreach>
+    </delete>
+
+</mapper>

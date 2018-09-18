@@ -60,8 +60,12 @@ public interface UserMapper extends MyMapper<User>
      **/
     public int deleteById(@Param(value = "id") Integer id);
 
-    public User login(Map<String,String> map);
+    public User login(Map<String, String> map);
 
-    public int modifyPass(Map<String,Object> map);
+    public int modifyPass(Map<String, Object> map);
+
+    public int checkLoginName(String loginName);
+
+    public int use(@Param(value = "ids") String[] ids);
 
 }

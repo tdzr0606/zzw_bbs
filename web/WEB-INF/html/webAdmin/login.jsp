@@ -16,7 +16,7 @@
 <body class="login-bg">
 
 <div class="login">
-    <div class="message">重大昆明社区</div>
+    <div class="message"><b>重大昆明社区</b></div>
     <div id="darkbannerwrap"></div>
     <form method="post" class="layui-form" id="loginForm">
         <input id="loginName" name="loginName" placeholder="用户名" type="text" lay-verify="required" class="layui-input"

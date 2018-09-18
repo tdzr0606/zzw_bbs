@@ -3,6 +3,10 @@ package com.nature.jet.component.system;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.nature.jet.controller.system.IndexController;
 import com.nature.jet.interceptor.MethodLog;
+import com.nature.jet.pojo.web.Logs;
+import com.nature.jet.pojo.web.User;
+import com.nature.jet.service.web.LogsService;
+import com.nature.jet.utils.Fields;
 import com.nature.jet.utils.JsonUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -19,11 +23,10 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * yd_check_svn
  * LogAspect
  *
- * @Author: 竺志伟
- * @Date: 2018-07-04 09:09
+ * @author:竺志伟
+ * @date :2018-09-18 10:36:30
  */
 @Component
 @Aspect
@@ -31,6 +34,8 @@ public class LogAspect
 {
     @Autowired
     HttpServletRequest request;
+    @Autowired
+    LogsService logsService;
 
     /**
      * 方法完成 切面
@@ -47,52 +52,45 @@ public class LogAspect
             argNames = "joinPoint, " + "methodLog,result", returning = "result")
     public void methodAfterReturning(JoinPoint joinPoint, MethodLog methodLog, Object result) throws Throwable
     {
-        //        Log log = new Log();
-        //        //返回目标对象
-        //        Object target = joinPoint.getTarget();
-        //        Class targetClass = Class.forName(target.getClass().getName());
-        //        //返回当前连接点签名  调用的方法名称
-        //        String methodName = joinPoint.getSignature().getName();
-        //
-        //        MethodLog methodLogTemp = null;
-        //        Method[] methods = targetClass.getMethods();
-        //        for(Method method : methods)
-        //        {
-        //            if(method.getName().equals(methodName))
-        //            {
-        //                methodLogTemp = method.getAnnotation(MethodLog.class);
-        //                break;
-        //            }
-        //        }
-        //
-        //        // 参数
-        //        String param = this.getParam();
-        //
-        //        log.setIp(this.getRequestIP());
-        //        log.setClassName(target.getClass().getName());
-        //        log.setMethodName(methodName);
-        //        log.setParamsStr(param);
-        //        log.setResultStr(JsonUtils.toJson(result, JsonInclude.Include.ALWAYS));
-        //        log.setLogTime(new Timestamp(new Date().getTime()));
-        //        log.setNote((null != methodLogTemp) ? methodLogTemp.description() : "");
-        //        User user = (User) request.getSession().getAttribute(Fields.SESSION_LOGIN);
-        //        if(null != user)
-        //        {
-        //            log.setLoginName(user.getLoginName());
-        //        }
-        //        else
-        //        {
-        //            user = (User) request.getSession().getAttribute(Fields.SESSION_LOGIN_WX);
-        //            if(null != user)
-        //            {
-        //                log.setLoginName(user.getLoginName());
-        //            }
-        //            else
-        //            {
-        //                log.setLoginName("");
-        //            }
-        //        }
-        //        logService.addNew(log);
+        Logs log = new Logs();
+        //返回目标对象
+        Object target = joinPoint.getTarget();
+        Class targetClass = Class.forName(target.getClass().getName());
+        //返回当前连接点签名  调用的方法名称
+        String methodName = joinPoint.getSignature().getName();
+
+        MethodLog methodLogTemp = null;
+        Method[] methods = targetClass.getMethods();
+        for(Method method : methods)
+        {
+            if(method.getName().equals(methodName))
+            {
+                methodLogTemp = method.getAnnotation(MethodLog.class);
+                break;
+            }
+        }
+
+        // 参数
+        String param = this.getParam();
+
+        log.setIp(this.getRequestIP());
+        log.setClassName(target.getClass().getName());
+        log.setMethodName(methodName);
+        log.setParamStr(param);
+        log.setResultStr(JsonUtils.toJson(result, JsonInclude.Include.ALWAYS));
+        log.setCreateTime(new Timestamp(System.currentTimeMillis()));
+        log.setNote((null != methodLogTemp) ? methodLogTemp.description() : "");
+
+        User user = (User) request.getSession().getAttribute(Fields.SESSION_WEB_LOGIN);
+        if(null != user)
+        {
+            log.setLoginName(user.getLoginName());
+        }
+        else
+        {
+            log.setLoginName("");
+        }
+        logsService.addNew(log);
     }
 
     /**

@@ -3,13 +3,12 @@ package com.nature.jet.pojo.web;
 import java.io.Serializable;
 
 /**
- * 
  * User
  * Author:竺志伟
  * Date:2018-09-14 22:01:25
- */ 
+ */
 
-public class User implements Serializable 
+public class User implements Serializable
 {
     private Boolean isUse;
     private String note;
@@ -21,72 +20,78 @@ public class User implements Serializable
 
     public Boolean getIsUse()
     {
-      return isUse;
+        return isUse;
     }
 
-    public void setIsUse( Boolean isUse)
+    public void setIsUse(Boolean isUse)
     {
-      this.isUse = isUse;
+        this.isUse = isUse;
     }
 
     public String getNote()
     {
-      return note;
+        return note;
     }
 
-    public void setNote( String note)
+    public void setNote(String note)
     {
-      this.note = note;
+        this.note = note;
     }
 
     public String getLoginName()
     {
-      return loginName;
+        return loginName;
     }
 
-    public void setLoginName( String loginName)
+    public void setLoginName(String loginName)
     {
-      this.loginName = loginName;
+        this.loginName = loginName;
     }
 
     public String getMobile()
     {
-      return mobile;
+        return mobile;
     }
 
-    public void setMobile( String mobile)
+    public void setMobile(String mobile)
     {
-      this.mobile = mobile;
+        this.mobile = mobile;
     }
 
     public String getLoginPass()
     {
-      return loginPass;
+        return loginPass;
     }
 
-    public void setLoginPass( String loginPass)
+    public void setLoginPass(String loginPass)
     {
-      this.loginPass = loginPass;
+        this.loginPass = loginPass;
     }
 
     public Integer getId()
     {
-      return id;
+        return id;
     }
 
-    public void setId( Integer id)
+    public void setId(Integer id)
     {
-      this.id = id;
+        this.id = id;
     }
 
     public String getUserName()
     {
-      return userName;
+        return userName;
     }
 
-    public void setUserName( String userName)
+    public void setUserName(String userName)
     {
-      this.userName = userName;
+        this.userName = userName;
     }
 
+    @Override
+    public String toString()
+    {
+        return "User{" + "isUse=" + isUse + ", note='" + note + '\'' + ", loginName='" + loginName + '\'' + ", mobile='" +
+                mobile + '\'' + ", loginPass='" + loginPass + '\'' + ", id=" + id + ", userName='" + userName + '\'' + '}';
+    }
 }

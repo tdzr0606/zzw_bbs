@@ -1,6 +1,7 @@
 package com.nature.jet.controller.system;
 
 import com.nature.jet.component.system.CommonResult;
+import com.nature.jet.interceptor.MethodLog;
 import com.nature.jet.pojo.web.User;
 import com.nature.jet.service.web.UserService;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -80,16 +81,17 @@ public class IndexController extends BaseController
      */
     @RequestMapping(value = "/webAdmin/login")
     @ResponseBody
+    @MethodLog(description = "后台登录")
     public CommonResult webAdminLogin(@RequestParam(value = "loginName", required = true, defaultValue = "") String loginName,
                                       @RequestParam(value = "loginPass", required = true, defaultValue = "") String loginPass)
     {
         User user = userService.login(loginName, DigestUtils.md5Hex(loginPass));
-        if( null == user )
+        if(null == user)
         {
-            return resultFailsWrapper("用户名密码错误",null);
+            return resultFailsWrapper("用户名密码错误", null);
         }
         super.saveWebLogin(user);
-        return resultSuccessWrapper("登录成功",null);
+        return resultSuccessWrapper("登录成功", null);
     }
 
 
@@ -116,6 +118,7 @@ public class IndexController extends BaseController
      * @date :2018-09-06 10:31:49
      */
     @RequestMapping(value = "/webAdmin/logout")
+    @MethodLog(description = "后台登出")
     public String webAdminLogOut()
     {
         super.removeWebLogin();

@@ -7,13 +7,13 @@
     </div>
     <!-- 头部区域（可配合layui已有的水平导航） -->
     <ul class="layui-nav layui-layout-left">
-        <li class="layui-nav-item"><a href="/webAdmin/index"><i class="layui-icon">&#xe68e;</i> 首页</a></li>
+        <li class="layui-nav-item"><a href="/webAdmin/index"><i class="layui-icon">&#xe68e;</i>首页</a></li>
     </ul>
     <ul class="layui-nav layui-layout-right" lay-filter="topMenu">
-        <li class="layui-nav-item"><a href="javascript:;"><i class="layui-icon">&#xe614;</i> 系统管理</a>
+        <li class="layui-nav-item"><a href="javascript:;"><i class="layui-icon">&#xe614;</i>系统管理</a>
             <dl class="layui-nav-child">
-                <dd><a href="/webAdmin/user/toPage"><i class="fa fa-cogs"></i>管理员管理</a></dd>
-                <dd><a href="/webAdmin/log/toPage"><i class="fa fa-file-o"></i>系统日志</a></dd>
+                <dd><a href="/webAdmin/user/toPage"><i class="fa fa-cogs"></i>&nbsp;管理员管理</a></dd>
+                <dd><a href="/webAdmin/logs/toPage"><i class="fa fa-file-o"></i>&nbsp;系统日志</a></dd>
             </dl>
         </li>
         <li class="layui-nav-item">

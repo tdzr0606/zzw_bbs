@@ -98,9 +98,19 @@ public class UserService
 
     public boolean modifyPass(int id, String loginPass)
     {
-        Map<String,Object> map = new HashMap<>();
-        map.put("id",id);
-        map.put("loginPass",loginPass);
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("loginPass", loginPass);
         return userMapper.modifyPass(map) == 1;
+    }
+
+    public boolean checkLoginName(String loginName)
+    {
+        return userMapper.checkLoginName(loginName) == 0;
+    }
+
+    public boolean use(String[] ids)
+    {
+        return userMapper.use(ids) > 0;
     }
 }
