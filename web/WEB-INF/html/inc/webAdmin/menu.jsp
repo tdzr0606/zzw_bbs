@@ -43,7 +43,7 @@
                 <a class="layui-nav-item-first" href="javascript:;"><i class="fa fa-user-o"></i>&nbsp;系统管理</a>
                 <dl class="layui-nav-child">
                     <dd><a href="/webAdmin/notice/toPage"><i class="fa fa-angle-right"></i>&nbsp;通知管理</a></dd>
-                    <dd><a href="/"><i class="fa fa-angle-right"></i>&nbsp;友情链接</a></dd>
+                    <dd><a href="/webAdmin/friend/toPage"><i class="fa fa-angle-right"></i>&nbsp;友情链接</a></dd>
                 </dl>
             </li>
         </ul>
