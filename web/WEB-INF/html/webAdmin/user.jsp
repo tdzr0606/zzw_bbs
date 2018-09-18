@@ -148,6 +148,7 @@
                 $('#actionUrl').val("new");
                 $('#id').val('0');
                 $('#loginName').removeAttr('readonly');
+                $('#loginName').removeClass('readonly');
                 form.render();
                 layer.open({
                     type: 1
@@ -192,6 +193,7 @@
                                 form.loadData(json.data, 'userForm');
                                 $('#actionUrl').val("modify");
                                 $('#loginName').attr('readonly', 'readonly');
+                                $('#loginName').addClass('readonly');
                                 form.render();
                                 layer.open({
                                     type: 1

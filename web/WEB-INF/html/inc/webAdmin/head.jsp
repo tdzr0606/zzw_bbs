@@ -5,4 +5,5 @@
     <title>重大昆明社区</title>
     <link rel="stylesheet" href="/design/webAdmin/css/layui.css">
     <link rel="stylesheet" href="/design/webAdmin/css/ch233.min.css">
+    <link rel="stylesheet" href="/design/webAdmin/css/layui.ext.css">
 </head>
