@@ -1,0 +1,73 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nature.jet.mapper.web.BbsUserMapper">
+
+    <!--基础 表字段定义 -->
+    <sql id="basicColumn">
+        isUse,note,mobile,postNum,userName,lastLoginIP,imgUrl,lastLoginTime,backNum,loginName,loginPass,id,registerDate
+    </sql>
+
+    <!-- 查询所有数据 -->
+    <select id="list" resultType="BbsUser" parameterType="java.lang.String">
+        SELECT
+        <include refid="basicColumn"/>
+        FROM bbs_user
+        <where>
+            <if test="key != null and key != ''">
+                note LIKE CONCAT(CONCAT('%',#{key}),'%')
+                or mobile LIKE CONCAT(CONCAT('%',#{key}),'%')
+                or userName LIKE CONCAT(CONCAT('%',#{key}),'%')
+                or lastLoginIP LIKE CONCAT(CONCAT('%',#{key}),'%')
+                or imgUrl LIKE CONCAT(CONCAT('%',#{key}),'%')
+                or lastLoginTime LIKE CONCAT(CONCAT('%',#{key}),'%')
+                or loginName LIKE CONCAT(CONCAT('%',#{key}),'%')
+                or loginPass LIKE CONCAT(CONCAT('%',#{key}),'%')
+            </if>
+        </where>
+        ORDER BY id DESC
+    </select>
+
+    <!-- 根据ID查询数据 -->
+    <select id="findById" resultType="BbsUser" parameterType="java.lang.Integer">
+        SELECT <include refid="basicColumn"></include> FROM bbs_user WHERE id = #{id}
+    </select>
+
+    <!-- 新建 -->
+    <insert id="add" parameterType="BbsUser" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO bbs_user ( isUse,note,mobile,postNum,userName,lastLoginIP,imgUrl,lastLoginTime,backNum,loginName,loginPass,registerDate ) 
+        VALUES ( #{isUse},#{note},#{mobile},#{postNum},#{userName},#{lastLoginIP},#{imgUrl},#{lastLoginTime},#{backNum},#{loginName},#{loginPass},#{registerDate} ) 
+   </insert>
+
+    <!-- 修改-->
+    <update id="modify" parameterType="BbsUser">
+        UPDATE bbs_user SET isUse = #{isUse},note = #{note},mobile = #{mobile},postNum = #{postNum},userName = #{userName},lastLoginIP = #{lastLoginIP},imgUrl = #{imgUrl},lastLoginTime = #{lastLoginTime},backNum = #{backNum},loginName = #{loginName},loginPass = #{loginPass},registerDate = #{registerDate}
+        WHERE  id = #{id} 
+    </update>
+
+    <!-- 删除 -->
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        DELETE FROM bbs_user WHERE  id = #{id}
+    </delete>
+
+    <!-- 批量删除 -->
+    <delete id="deleteByIds" parameterType="java.util.Arrays">
+        DELETE FROM bbs_user WHERE isUse = 0 and id IN
+        <foreach collection="ids" item="item" index="index" open="(" separator="," close=")">
+            ${item}
+        </foreach>
+    </delete>
+
+    <!-- 验证登录名 -->
+    <select id="checkLoginName" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(1) from bbs_user where loginName = #{loginName}
+    </select>
+
+    <!-- 启用/禁用 -->
+    <update id="use" parameterType="java.util.Arrays">
+        UPDATE bbs_user set isUse=(isUse+1)%2 where id in
+        <foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+            ${item}
+        </foreach>
+    </update>
+
+</mapper>
