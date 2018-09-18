@@ -48,7 +48,7 @@
 
     <!-- 批量删除 -->
     <delete id="deleteByIds" parameterType="java.util.Arrays">
-        DELETE FROM web_user WHERE id IN
+        DELETE FROM web_user WHERE isUse = 0 and id IN
         <foreach collection="ids" item="item" index="index" open="(" separator="," close=")">
             ${item}
         </foreach>

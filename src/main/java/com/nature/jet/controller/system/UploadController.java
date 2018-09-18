@@ -147,8 +147,7 @@ public class UploadController extends BaseController
     @ResponseBody
     public CommonResult updateFile(@RequestParam(value = "file", required = true) MultipartFile file,
                                    @RequestParam(value = "childFile", required = true) String childFile,
-                                   @RequestParam(value = "requestType", required = false) String requestType
-    )
+                                   @RequestParam(value = "requestType", required = false) String requestType)
     {
         String rootPath = ContextLoader.getCurrentWebApplicationContext().getServletContext().getRealPath("/");
         String fileName = file.getOriginalFilename();
@@ -168,8 +167,7 @@ public class UploadController extends BaseController
             }
         }
         File filePath = new File(Fields.STATIC_DATA_FILE_DIR, childFile);
-        File fileFile =
-                new File(filePath + Tools.timePath(), String.format("%s.%s", Tools.timeFileName(), fileExtension));
+        File fileFile = new File(filePath + Tools.timePath(), String.format("%s.%s", Tools.timeFileName(), fileExtension));
         File fileRealFile = new File(rootPath, fileFile.getPath());
         if(!fileRealFile.getParentFile().exists())
         {
@@ -194,5 +192,78 @@ public class UploadController extends BaseController
         return resultSuccessWrapper("success", data);
     }
 
+
+    /**
+     * layui 富文本编辑器 上传图片
+     * Update eidt img map.
+     *
+     * @param imgFile the img file
+     * @return the map
+     * @author:竺志伟
+     * @date :2018-09-18 16:23:33
+     */
+    @RequestMapping(value = "/system/upload/edit", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> updateEidtImg(@RequestParam(value = "file", required = true) MultipartFile imgFile)
+    {
+        Map<String, Object> data = new HashMap<String, Object>();
+        Map<String, Object> imgData = new HashMap<String, Object>();
+
+
+        String rootPath = ContextLoader.getCurrentWebApplicationContext().getServletContext().getRealPath("/");
+        String fileName = imgFile.getOriginalFilename();
+        String fileExtension = FilenameUtils.getExtension(fileName);
+        File imagePath = new File(Fields.STATIC_DATA_IMAGE_DIR, "layuiEidt");
+        File imageFile = new File(imagePath + Tools.timePath(),
+                String.format("%s.%s", Tools.timeFileName(), fileExtension.toLowerCase()));
+        File imageRealFile = new File(rootPath, imageFile.getPath());
+        if(!imageRealFile.getParentFile().exists())
+        {
+            imageRealFile.getParentFile().mkdirs();
+        }
+        try
+        {
+            //思路,如果图片过大,强制按比例压缩到指定宽度
+            // 构造Image对象
+            BufferedImage src = javax.imageio.ImageIO.read(imgFile.getInputStream());
+            if(src.getWidth() > Fields.IMAGE_MAX_WIDTH)
+            {
+                int width = Fields.IMAGE_MAX_WIDTH;
+                int height = src.getHeight() * Fields.IMAGE_MAX_WIDTH / src.getWidth();//按比例，将高度缩减
+                BufferedImage tag = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+                tag.getGraphics().drawImage(src, 0, 0, width, height, null);
+                FileOutputStream out = new FileOutputStream(imageRealFile);
+                JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
+                encoder.encode(tag);
+                out.close();
+
+                imgData.put("src", imageFile.getPath().replaceAll("\\\\", "/"));
+                imgData.put("title", imgFile.getName());
+                data.put("code", "0");
+                data.put("msg", "");
+                data.put("data", imgData);
+            }
+            else
+            {
+                imgFile.transferTo(imageRealFile);
+
+                imgData.put("src", imageFile.getPath().replaceAll("\\\\", "/"));
+                imgData.put("title", imgFile.getName());
+                data.put("code", "0");
+                data.put("msg", "");
+                data.put("data", imgData);
+            }
+        }
+        catch(IOException e)
+        {
+            logger.error("Error", e);
+            data.put("code", "-1");
+            data.put("msg", e.toString());
+        }
+        finally
+        {
+            return data;
+        }
+    }
 
 }

@@ -3,10 +3,9 @@
 <%--顶部菜单--%>
 <div class="layui-header">
     <div class="layui-logo" style="padding: 0px;"><img src="/design/webAdmin/images/logo.png" style="width: 318px;height:
-    56px;">
-    </div>
+    56px;"></div>
     <!-- 头部区域（可配合layui已有的水平导航） -->
-    <ul class="layui-nav layui-layout-left">
+    <ul class="layui-nav layui-layout-left" style="left:200px;">
         <li class="layui-nav-item"><a href="/webAdmin/index"><i class="layui-icon">&#xe68e;</i>首页</a></li>
     </ul>
     <ul class="layui-nav layui-layout-right" lay-filter="topMenu">
@@ -43,7 +42,7 @@
             <li class="layui-nav-item layui-nav-itemed">
                 <a class="layui-nav-item-first" href="javascript:;"><i class="fa fa-user-o"></i>&nbsp;系统管理</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="/"><i class="fa fa-angle-right"></i>&nbsp;通知管理</a></dd>
+                    <dd><a href="/webAdmin/notice/toPage"><i class="fa fa-angle-right"></i>&nbsp;通知管理</a></dd>
                     <dd><a href="/"><i class="fa fa-angle-right"></i>&nbsp;友情链接</a></dd>
                 </dl>
             </li>

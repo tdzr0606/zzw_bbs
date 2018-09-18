@@ -54,3 +54,4 @@ hs_err_pid*
 /.idea/
 /target/
 /web/WEB-INF/lib/
+/web/fileUpload/

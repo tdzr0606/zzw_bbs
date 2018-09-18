@@ -1,0 +1,63 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nature.jet.mapper.web.NoticeMapper">
+
+    <!--基础 表字段定义 -->
+    <sql id="basicColumn">
+        isPublic,id,title,createName,content,createDate
+    </sql>
+
+    <!-- 查询所有数据 -->
+    <select id="list" resultType="Notice" parameterType="java.lang.String">
+        SELECT
+        <include refid="basicColumn"/>
+        FROM web_notice
+        <where>
+            <if test="key != null and key != ''">
+                title LIKE CONCAT(CONCAT('%',#{key}),'%')
+                or createName LIKE CONCAT(CONCAT('%',#{key}),'%')
+                or content LIKE CONCAT(CONCAT('%',#{key}),'%')
+            </if>
+        </where>
+        ORDER BY id DESC
+    </select>
+
+    <!-- 根据ID查询数据 -->
+    <select id="findById" resultType="Notice" parameterType="java.lang.Integer">
+        SELECT <include refid="basicColumn"></include> FROM web_notice WHERE id = #{id}
+    </select>
+
+    <!-- 新建 -->
+    <insert id="add" parameterType="Notice" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO web_notice ( isPublic,title,createName,content,createDate ) 
+        VALUES ( #{isPublic},#{title},#{createName},#{content},#{createDate} ) 
+   </insert>
+
+    <!-- 修改-->
+    <update id="modify" parameterType="Notice">
+        UPDATE web_notice SET isPublic = #{isPublic},title = #{title},createName = #{createName},content = #{content},createDate = #{createDate}
+        WHERE  id = #{id} 
+    </update>
+
+    <!-- 删除 -->
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        DELETE FROM web_notice WHERE  id = #{id}
+    </delete>
+
+    <!-- 批量删除 -->
+    <delete id="deleteByIds" parameterType="java.util.Arrays">
+        DELETE FROM web_notice WHERE isPublic = 0 and id IN
+        <foreach collection="ids" item="item" index="index" open="(" separator="," close=")">
+            ${item}
+        </foreach>
+    </delete>
+
+    <!-- 启用/禁用 -->
+    <update id="use" parameterType="java.util.Arrays">
+        UPDATE web_notice set isPublic=(isPublic+1)%2 where id in
+        <foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+            ${item}
+        </foreach>
+    </update>
+
+</mapper>
