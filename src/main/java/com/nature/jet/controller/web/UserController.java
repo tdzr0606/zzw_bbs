@@ -1,10 +1,12 @@
 package com.nature.jet.controller.web;
 
 import javax.servlet.http.HttpServletRequest;
+
 import com.nature.jet.controller.system.BaseController;
 import com.nature.jet.interceptor.MethodLog;
 import com.nature.jet.component.system.CommonResult;
 import com.nature.jet.component.system.Page;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +16,6 @@ import com.nature.jet.service.web.UserService;
 import com.nature.jet.pojo.web.User;
 
 /**
- * 
  * User控制
  * UserController
  * Author:竺志伟
@@ -29,15 +30,16 @@ public class UserController extends BaseController
     UserService userService;
 
     /**
-      * 进入页面
-      *
-      * @return
-      */
-    @RequestMapping(value="/wbkj/user/toPage")
+     * 进入页面
+     *
+     * @return
+     */
+    @RequestMapping(value = "/webAdmin/user/toPage")
     public String toPage()
     {
-       return "/wbkj/web/user_jsp";
+        return "/webAdmin/user_jsp";
     }
+
     /**
      * 获取分页信息
      *
@@ -46,12 +48,11 @@ public class UserController extends BaseController
      * @param key
      * @return
      */
-    @RequestMapping(value = "/wbkj/user/list")
+    @RequestMapping(value = "/webAdmin/user/list")
     @ResponseBody
-    public Page<User> listPage(
-            @RequestParam(value = "page", required = true, defaultValue = "1") Integer page,
-            @RequestParam(value = "limit", required = true, defaultValue = "40") Integer limit,
-            @RequestParam(value = "key", required = false, defaultValue = "") String key)
+    public Page<User> listPage(@RequestParam(value = "page", required = true, defaultValue = "1") Integer page,
+                               @RequestParam(value = "limit", required = true, defaultValue = "40") Integer limit,
+                               @RequestParam(value = "key", required = false, defaultValue = "") String key)
     {
         return userService.listPage(page, limit, key);
     }
@@ -62,9 +63,9 @@ public class UserController extends BaseController
      * @param user
      * @return
      */
-    @RequestMapping(value = "/wbkj/user/new")
+    @RequestMapping(value = "/webAdmin/user/new")
     @ResponseBody
-	  @MethodLog(description = "数据添加")
+    @MethodLog(description = "数据添加")
     public CommonResult add(User user)
     {
         return resultBoolWrapper(userService.addNew(user), "信息创建成功", "信息创建失败", null);
@@ -76,9 +77,9 @@ public class UserController extends BaseController
      * @param user
      * @return
      */
-    @RequestMapping(value = "/wbkj/user/modify")
+    @RequestMapping(value = "/webAdmin/user/modify")
     @ResponseBody
-	  @MethodLog(description = "数据修改")
+    @MethodLog(description = "数据修改")
     public CommonResult modify(User user)
     {
         return resultBoolWrapper(userService.modify(user), "信息修改成功", "信息修改失败", null);
@@ -90,13 +91,12 @@ public class UserController extends BaseController
      * @param ids
      * @return
      */
-    @RequestMapping(value = "/wbkj/user/delete")
+    @RequestMapping(value = "/webAdmin/user/delete")
     @ResponseBody
-	  @MethodLog(description = "数据删除")
-    public CommonResult delete(
-            @RequestParam(value = "ids", required = true, defaultValue = "0") String ids)
+    @MethodLog(description = "数据删除")
+    public CommonResult delete(@RequestParam(value = "ids", required = true, defaultValue = "0") String ids)
     {
-		    userService.deleteByIds(ids.split(","));
+        userService.deleteByIds(ids.split(","));
         return resultSuccessWrapper("信息删除成功", null);
     }
 
@@ -106,11 +106,34 @@ public class UserController extends BaseController
      * @param id
      * @return
      */
-    @RequestMapping(value = "/wbkj/user/info")
+    @RequestMapping(value = "/webAdmin/user/info")
     @ResponseBody
-    public CommonResult getUserById(
-            @RequestParam(value = "id", required = true, defaultValue = "0") Integer id)
+    public CommonResult getUserById(@RequestParam(value = "id", required = true, defaultValue = "0") Integer id)
     {
         return resultBoolWrapper(true, "信息装载成功", "信息装载失败", userService.getInfoById(id));
+    }
+
+    /**
+     * 密码修改
+     * Pass modify common result.
+     *
+     * @param loginPass  the login pass
+     * @param loginPassN the login pass n
+     * @return the common result
+     * @author:竺志伟
+     * @date :2018-09-18 08:53:56
+     */
+    @RequestMapping(value = "/webAdmin/user/passModify")
+    @ResponseBody
+    public CommonResult passModify(@RequestParam(value = "loginPass", required = true, defaultValue = "") String loginPass,
+                                   @RequestParam(value = "loginPassN", required = true, defaultValue = "") String loginPassN)
+    {
+        User user = super.getWebLogin();
+        if(!DigestUtils.md5Hex(loginPass).equals(user.getLoginPass()))
+        {
+            return resultFailsWrapper("原始密码不匹配", null);
+        }
+        return resultBoolWrapper(userService.modifyPass(user.getId(), DigestUtils.md5Hex(loginPassN)), "密码修改成功,请重新登录", "密码修改失败",
+                null);
     }
 }

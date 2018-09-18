@@ -12,7 +12,7 @@
     <ul class="layui-nav layui-layout-right" lay-filter="topMenu">
         <li class="layui-nav-item"><a href="javascript:;"><i class="layui-icon">&#xe614;</i> 系统管理</a>
             <dl class="layui-nav-child">
-                <dd><a href="/webAdmin/role/toPage"><i class="fa fa-cogs"></i>管理员管理</a></dd>
+                <dd><a href="/webAdmin/user/toPage"><i class="fa fa-cogs"></i>管理员管理</a></dd>
                 <dd><a href="/webAdmin/log/toPage"><i class="fa fa-file-o"></i>系统日志</a></dd>
             </dl>
         </li>

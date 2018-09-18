@@ -54,12 +54,17 @@
         </foreach>
     </delete>
 
-    <!-- denglu  -->
+    <!-- 登录  -->
     <select id="login" resultType="User" parameterType="java.util.Map">
         select
         <include refid="basicColumn"/>
         from web_user where loginName = #{loginName} and loginPass = #{loginPass} and
         isUse = 1
     </select>
+
+    <!-- 修改密码-->
+    <update id="modifyPass" parameterType="java.util.Map">
+        update web_user set loginPass = #{loginPass} where id = #{id}
+    </update>
 
 </mapper>

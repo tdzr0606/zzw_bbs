@@ -151,7 +151,12 @@ public abstract class BaseController
 
     protected void saveWebLogin(User user)
     {
-        request.getSession().setAttribute(Fields.SESSION_WEB_LOGIN,user);
+        request.getSession().setAttribute(Fields.SESSION_WEB_LOGIN, user);
+    }
+
+    protected User getWebLogin()
+    {
+        return (User) request.getSession().getAttribute(Fields.SESSION_WEB_LOGIN);
     }
 
 }

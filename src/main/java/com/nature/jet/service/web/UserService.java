@@ -87,11 +87,20 @@ public class UserService
     }
 
 
-    public User login(String loginName,String loginPass)
+    public User login(String loginName, String loginPass)
     {
-        Map<String,String> map = new HashMap<>();
-        map.put("loginName",loginName);
-        map.put("loginPass",loginPass);
+        Map<String, String> map = new HashMap<>();
+        map.put("loginName", loginName);
+        map.put("loginPass", loginPass);
         return userMapper.login(map);
+    }
+
+
+    public boolean modifyPass(int id, String loginPass)
+    {
+        Map<String,Object> map = new HashMap<>();
+        map.put("id",id);
+        map.put("loginPass",loginPass);
+        return userMapper.modifyPass(map) == 1;
     }
 }

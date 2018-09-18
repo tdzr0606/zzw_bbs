@@ -62,4 +62,6 @@ public interface UserMapper extends MyMapper<User>
 
     public User login(Map<String,String> map);
 
+    public int modifyPass(Map<String,Object> map);
+
 }

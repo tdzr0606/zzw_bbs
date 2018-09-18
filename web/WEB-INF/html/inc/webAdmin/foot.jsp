@@ -102,7 +102,7 @@
                 layer.msg('两次密码不一致');
                 return false;
             }
-            var actionUrl = "/webAdmin/user/passwordModify";
+            var actionUrl = "/webAdmin/user/passModify";
             $.ajax({
                 type: 'post',
                 data: data.field,
@@ -114,7 +114,7 @@
                         layer.alert(json.msg, {closeBtn: 0}, function ()
                         {
                             layer.closeAll();
-                            window.location.href = "/?sessionId=" + new Date().getTime();
+                            window.location.href = "/webAdmin?sessionId=" + new Date().getTime();
                         });
                     }
                     else
