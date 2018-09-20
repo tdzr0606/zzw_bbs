@@ -33,11 +33,10 @@
                style="width:100%;" type="button"
                lay-filter="loginForm">
     </form>
-    <%--<div class="linkOther" style="margin-top: 10px;">--%>
-        <%--<span style="float: right;margin-right:5px;"><a href="/findPass"><i--%>
-                <%--class="layui-icon">&#xe631;</i>&nbsp;忘记密码</a></span>--%>
-        <%--<span><a href="/register"><i class="layui-icon">&#xe654;</i>&nbsp;注册</a></span>--%>
-    <%--</div>--%>
+    <div class="linkOther" style="margin-top: 10px;">
+        <span style="float: right;margin-right:5px;"><a href="/"><i
+                class="layui-icon">&#xe631;</i>&nbsp;返回首页</a></span>
+    </div>
 </div>
 </body>
 <script type="text/javascript" src="/design/webAdmin/layui.js"></script>
