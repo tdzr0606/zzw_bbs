@@ -1,7 +1,7 @@
 <%--
-   bbsUser
+   bbsType
    User:竺志伟
-   Date:2018-09-18 20:57:03
+   Date:2018-09-19 09:57:51
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -12,9 +12,9 @@
     <jsp:include page="/WEB-INF/html/inc/webAdmin/menu.jsp"/>
     <div class="layui-body" style="padding:10px">
         <fieldset class="layui-elem-field layui-field-title">
-            <legend>用户管理</legend>
+            <legend>主题管理</legend>
         </fieldset>
-        <div id="bbsUserMenuBar">
+        <div id="bbsTypeMenuBar">
             <div class="layui-row">
                 <div class="layui-col-md6">
                     <div class="layui-btn-group">
@@ -33,41 +33,23 @@
                 </div>
             </div>
         </div>
-        <table class="layui-hidden" id="bbsUserTable" lay-filter="bbsUserTable"></table>
+        <table class="layui-hidden" id="bbsTypeTable" lay-filter="bbsTypeTable"></table>
     </div>
 </div>
 
-<form class="layui-form" id="bbsUserForm" style="display:none;padding:10px 40px 10px 0px; ">
+<form class="layui-form" id="bbsTypeForm" style="display:none;padding:10px 40px 10px 0px; ">
 
     <div class="layui-form-item">
-        <label class="layui-form-label">用户名</label>
+        <label class="layui-form-label">标题</label>
         <div class="layui-input-block">
-            <input type="text" name="userName" required="required" lay-verify="required" placeholder="请输入用户名" autocomplete="off"
+            <input type="text" name="title" required="required" lay-verify="required" placeholder="请输入标题" autocomplete="off"
                    class="layui-input"/>
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">登录名</label>
-        <div class="layui-input-block">
-            <input type="text" name="loginName" id="loginName" required="required" lay-verify="required" placeholder="请输入字段名"
-                   autocomplete="off"
-                   class="layui-input"/>
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">密码</label>
-        <div class="layui-input-block">
-            <input type="password" name="loginPass" required="required" lay-verify="required" placeholder="请输入密码"
-                   autocomplete="off"
-                   class="layui-input"/>
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">头像</label>
-        <div class="layui-input-inline" style="width: 430px">
-            <input type="text" name="imgUrl" id="imgUrl" required="required" lay-verify="required" placeholder="请上传头像"
-                   autocomplete="off"
-                   class="layui-input readonly" readonly/>
+        <label class="layui-form-label">展示图片</label>
+        <div class="layui-input-inline" style="width: 430px;">
+            <input type="text" name="imgUrl" id="imgUrl" autocomplete="off" class="layui-input readonly" readonly/>
         </div>
         <div class="layui-input-inline" style="width:200px;">
             <span id="upImg" style="cursor:pointer" class="layui-btn">
@@ -79,29 +61,38 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">手机号</label>
+        <label class="layui-form-label">版主</label>
+        <div class="layui-input-inline" style="width: 530px;">
+            <input type="text" name="masterName" id="masterName" placeholder="请选择版主" autocomplete="off"
+                   class="layui-input readonly" readonly/>
+            <input type="hidden" name="masterId" id="masterId"/>
+        </div>
+        <div class="layui-input-inline" style="width:100px;">
+            <span id="masterSBtn" style="cursor:pointer" class="layui-btn">
+                <i class="layui-icon">&#xe681;</i>选择
+            </span>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">排序</label>
         <div class="layui-input-block">
-            <input type="text" name="mobile" required="required" lay-verify="required|phone" placeholder="请输入手机号"
-                   autocomplete="off"
-                   class="layui-input"/>
+            <input type="number" name="sortNum" lay-verity="required" autocomplete="off"
+                   class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">备注</label>
         <div class="layui-input-block">
-            <textarea class="layui-textarea" name="note"
-                      autocomplete="off"></textarea>
+            <textarea class="layui-textarea" name="note" autocomplete="off"></textarea>
         </div>
     </div>
-
-
     <input type="hidden" name="id" id="id" value="0"/>
     <input type="hidden" name="actionUrl" id="actionUrl" value=""/>
     <input type="hidden" name="isUse"/>
 
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button class="layui-btn" lay-submit="lay-submit" lay-filter="bbsUserForm">确定</button>
+            <button class="layui-btn" lay-submit="lay-submit" lay-filter="bbsTypeForm">确定</button>
             <button type="reset" class="layui-btn layui-btn-primary" onclick="layer.closeAll()">取消</button>
         </div>
     </div>
@@ -121,7 +112,7 @@
 <script type="text/html" id="imgUrlTpl">
     {{# if(d.imgUrl) { }}
     <image src="{{ d.imgUrl }}" style="width:30px;height:30px;cursor: pointer"
-           onclick="javascript:showImage('{{d.imgUrl}}','头像展示');"
+           onclick="javascript:showImage('{{d.imgUrl}}');"
            title="点击查看大图"/>
     {{# } else { }}
 
@@ -151,7 +142,7 @@
             elem: '#upImg'
             , size: 6000 //限制文件大小，单位 KB
             , exts: 'png|jpg' //只允许上传doc和docx  //如果不需要,是任意文件,请删除这一行
-            , url: '/system/upload/img?childFile=bbsUser&sessionId=' + new Date().getTime()
+            , url: '/system/upload/img?childFile=bbsType&sessionId=' + new Date().getTime()
             , accept: 'file'
             , done: function (res, index, upload)
             {
@@ -184,24 +175,23 @@
                 , shade: 0.2 //显示遮罩
             });
         });
-        var bbsUserTable = table.render({
-            elem: '#bbsUserTable'
-            , id: 'bbsUserTable'
-            , url: '/webAdmin/bbsUser/list'
+        var bbsTypeTable = table.render({
+            elem: '#bbsTypeTable'
+            , id: 'bbsTypeTable'
+            , url: '/webAdmin/bbsType/list'
             , cols: [[
                 {checkbox: true, fixed: true}
                 , {field: 'id', title: 'ID', width: 80, sort: true}
-                , {field: 'userName', title: '用户名', width: 120, sort: true}
-                , {field: 'loginName', title: '登录名', width: 120, sort: true}
-                , {field: 'mobile', title: '手机', width: 120, sort: true}
-                , {field: 'registerDate', title: '注册时间', width: 180, sort: true}
-                , {field: 'imgUrl', title: '头像', width: 80, sort: true, templet: '#imgUrlTpl'}
+                , {field: 'title', title: '标题', width: 200, sort: true}
+                , {field: 'masterName', title: '版主', width: 120, sort: true}
+                , {field: 'imgUrl', title: '展示图片', width: 120, sort: true, templet: '#imgUrlTpl'}
+                , {field: 'createDate', title: '创建时间', width: 180, sort: true}
                 , {field: 'isUse', title: '状态', width: 80, sort: true, templet: '#isUseTpl'}
-                , {field: 'lastLoginIP', title: '登录IP', width: 160, sort: true}
-                , {field: 'lastLoginTime', title: '登录时间', width: 180, sort: true}
-                , {field: 'postNum', title: '发帖数量', width: 120, sort: true}
-                , {field: 'backNum', title: '回帖数量', width: 120, sort: true}
-                , {field: 'note', title: '备注', width: 80, sort: true}
+                , {field: 'sortNum', title: '排序', width: 80}
+                , {field: 'postNum', title: '帖子数量', width: 120, sort: true}
+                , {field: 'lastPoster', title: '最后发帖者', width: 160, sort: true}
+                , {field: 'lastPostDate', title: '最后发帖时间', width: 160, sort: true}
+                , {field: 'note', title: '备注', width: 200, sort: true}
             ]]
             , height: 'full-240'
             , limit: 40
@@ -213,31 +203,28 @@
             search: function ()
             {
                 var keyValue = $('#searchKey').val();
-                bbsUserTable.reload({where: {key: keyValue}});
+                bbsTypeTable.reload({where: {key: keyValue}});
             }
             , new: function ()
             {
-                $('#bbsUserForm')[0].reset();
-                $('#bbsUserForm input').val('');
+                $('#bbsTypeForm')[0].reset();
+                $('#bbsTypeForm input').val('');
                 $('#actionUrl').val("new");
                 $('#id').val('0');
-                $('#loginName').removeAttr("readonly");
-                $('#loginName').removeClass("readonly");
-                form.render();
                 layer.open({
                     type: 1
                     , title: "新建"
                     , closeBtn: 1
                     , area: ['800px', '600px']
                     , shade: 0.2
-                    , id: 'bbsUserFormWindow'
+                    , id: 'bbsTypeFormWindow'
                     , moveType: 1
-                    , content: $('#bbsUserForm')
+                    , content: $('#bbsTypeForm')
                 });
             }
             , modify: function ()
             {
-                var checkStatus = table.checkStatus('bbsUserTable'), data = checkStatus.data;
+                var checkStatus = table.checkStatus('bbsTypeTable'), data = checkStatus.data;
                 if (data.length < 1)
                 {
                     layer.msg('您必须选中一条需要修改的记录');
@@ -248,7 +235,7 @@
                     layer.msg('您在修改的时候,不能选中多条记录');
                     return false;
                 }
-                else if (data[0].isUse)
+                else if(data[0].isUse)
                 {
                     layer.msg('当前数据已经启用,禁止修改');
                     return false;
@@ -258,16 +245,14 @@
                     var id = data[0].id;
                     $.ajax({
                         type: 'get',
-                        url: '/webAdmin/bbsUser/info?id=' + id + '&sessionId=' + new Date().getTime(),
+                        url: '/webAdmin/bbsType/info?id=' + id + '&sessionId=' + new Date().getTime(),
                         success: function (json)
                         {
                             if (json.success)
                             {
-                                $('#bbsUserForm input').val('');
-                                form.loadData(json.data, 'bbsUserForm');
+                                $('#bbsTypeForm input').val('');
+                                form.loadData(json.data, 'bbsTypeForm');
                                 $('#actionUrl').val("modify");
-                                $('#loginName').attr("readonly", "readonly");
-                                $('#loginName').addClass("readonly");
                                 form.render();
                                 layer.open({
                                     type: 1
@@ -275,9 +260,9 @@
                                     , closeBtn: 1
                                     , area: ['800px', '600px']
                                     , shade: 0.2
-                                    , id: 'bbsUserFormWindow'
+                                    , id: 'bbsTypeFormWindow'
                                     , moveType: 1
-                                    , content: $('#bbsUserForm')
+                                    , content: $('#bbsTypeForm')
                                     , success: function (layero)
                                     {
                                     }
@@ -300,7 +285,7 @@
             }
             , delete: function ()
             {
-                var checkStatus = table.checkStatus('bbsUserTable'), data = checkStatus.data;
+                var checkStatus = table.checkStatus('bbsTypeTable'), data = checkStatus.data;
                 if (data.length < 1)
                 {
                     layer.msg('您必须最少选中一条需要删除的记录');
@@ -308,7 +293,7 @@
                 }
                 layer.open({
                     type: 1
-                    , id: 'bbsUserDeleteAccept'
+                    , id: 'bbsTypeDeleteAccept'
                     , content: '<div style="padding: 20px 30px;">是否真的要删除选中的记录?</div>'
                     , btn: ['确定', '取消']
                     , btnAlign: 'c'
@@ -324,7 +309,7 @@
                         $.ajax({
                             type: 'post',
                             data: {ids: idArray.toString()},
-                            url: '/webAdmin/bbsUser/delete',
+                            url: '/webAdmin/bbsType/delete',
                             success: function (json)
                             {
                                 if (json.success)
@@ -332,7 +317,7 @@
                                     layer.alert(json.msg, {closeBtn: 0}, function ()
                                     {
                                         layer.closeAll();
-                                        bbsUserTable.reload();
+                                        bbsTypeTable.reload();
                                     });
                                 }
                                 else
@@ -355,7 +340,7 @@
             }
             , use: function ()
             {
-                var checkStatus = table.checkStatus('bbsUserTable');
+                var checkStatus = table.checkStatus('bbsTypeTable');
                 var data = checkStatus.data;
                 if (data.length < 1)
                 {
@@ -381,7 +366,7 @@
                         $.ajax({
                             type: 'post',
                             data: {ids: idArray.toString()}, //这里只能用Tostring 才会是 1,2,3,4,其它的会有[]
-                            url: '/webAdmin/bbsUser/use',
+                            url: '/webAdmin/bbsType/use',
                             success: function (json)
                             {
                                 if (json.success)
@@ -389,7 +374,7 @@
                                     layer.alert(json.msg, {closeBtn: 0}, function ()
                                     {
                                         layer.closeAll();
-                                        bbsUserTable.reload();
+                                        bbsTypeTable.reload();
                                     });
                                 }
                                 else
@@ -413,18 +398,18 @@
             }
         };
         //总体上调用,是那个按钮激活哪个
-        $('#bbsUserMenuBar .layui-btn').on('click', function ()
+        $('#bbsTypeMenuBar .layui-btn').on('click', function ()
         {
             var othis = $(this), method = othis.data('method');
             active[method] ? active[method].call(this, othis) : '';
         });
         //form submit新建修改事件提交
-        form.on('submit(bbsUserForm)', function (data)
+        form.on('submit(bbsTypeForm)', function (data)
         {
-            var actionUrl = "/webAdmin/bbsUser/" + $('#actionUrl').val();
+            var actionUrl = "/webAdmin/bbsType/" + $('#actionUrl').val();
             $.ajax({
                 type: 'post',
-                data: $('#bbsUserForm').serialize(),
+                data: $('#bbsTypeForm').serialize(),
                 url: actionUrl,
                 success: function (json)
                 {
@@ -433,7 +418,7 @@
                         layer.alert(json.msg, {closeBtn: 0}, function ()
                         {
                             layer.closeAll();
-                            bbsUserTable.reload();
+                            bbsTypeTable.reload();
                         });
                     }
                     else
@@ -452,8 +437,33 @@
             });
             return false;
         });
+        // 版主选择
+        $('#masterSBtn').click(function ()
+        {
+            layer.open({
+                type: 2,
+                anim: 5,
+                shade: .2,
+                id: 'collegeSelectW',
+                title: '版主选择',
+                btn: ['确定', '取消'],
+                area: ['800px', '600px'],
+                content: "/popular/toMasterSelectPage?sessionId=" + new Date().getTime(),
+                resize: false,
+                yes: function (index, layero)
+                {
+                    $('#masterId').val(document.returnValue.id);
+                    $('#masterName').val(document.returnValue.userName);
+                    layer.close(index);
+                },
+                cancel: function (index, layero)
+                {
+                    layer.close(index);
+                    return false;
+                }
+            });
+        });
     });
-
 
 </script>
 

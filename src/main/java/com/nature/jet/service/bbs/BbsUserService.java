@@ -1,12 +1,12 @@
-package com.nature.jet.service.web;
+package com.nature.jet.service.bbs;
 
 import com.github.pagehelper.ISelect;
 import com.github.pagehelper.PageHelper;
 import com.nature.jet.component.system.Page;
-import com.nature.jet.mapper.web.BbsUserMapper;
+import com.nature.jet.mapper.bbs.BbsUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.nature.jet.pojo.web.BbsUser;
+import com.nature.jet.pojo.bbs.BbsUser;
 
 /**
  * BbsUserService
@@ -91,5 +91,19 @@ public class BbsUserService
     public boolean use(String[] ids)
     {
         return bbsUserMapper.use(ids) > 0;
+    }
+
+
+
+    public Page<BbsUser> listMaster(int cusPage, int pageSize, String key)
+    {
+        return new Page<>(PageHelper.startPage(cusPage, pageSize).doSelectPageInfo(new ISelect()
+        {
+            @Override
+            public void doSelect()
+            {
+                bbsUserMapper.listMaster(key);
+            }
+        }));
     }
 }

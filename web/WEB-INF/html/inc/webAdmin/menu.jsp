@@ -35,7 +35,7 @@
                 <a class="layui-nav-item-first" href="javascript:;"><i class="fa fa-user-o"></i>&nbsp;论坛管理</a>
                 <dl class="layui-nav-child">
                     <dd><a href="/webAdmin/bbsUser/toPage"><i class="fa fa-angle-right"></i>&nbsp;用户管理</a></dd>
-                    <dd><a href="/"><i class="fa fa-angle-right"></i>&nbsp;主题管理</a></dd>
+                    <dd><a href="/webAdmin/bbsType/toPage"><i class="fa fa-angle-right"></i>&nbsp;主题管理</a></dd>
                     <dd><a href="/"><i class="fa fa-angle-right"></i>&nbsp;帖子管理</a></dd>
                 </dl>
             </li>

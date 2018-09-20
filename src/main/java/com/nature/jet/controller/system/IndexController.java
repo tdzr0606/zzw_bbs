@@ -64,7 +64,7 @@ public class IndexController extends BaseController
      * @author:竺志伟
      * @date :2018-09-06 10:31:29
      */
-    @RequestMapping(value = "/webAdmin")
+    @RequestMapping(value = {"/webAdmin","/webAdmin/"})
     public String webAdmin()
     {
         return "/webAdmin/login_jsp";

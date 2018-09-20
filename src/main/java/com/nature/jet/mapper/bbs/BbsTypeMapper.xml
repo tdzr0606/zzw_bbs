@@ -1,0 +1,68 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nature.jet.mapper.bbs.BbsTypeMapper">
+
+    <!--基础 表字段定义 -->
+    <sql id="basicColumn">
+        imgUrl,isUse,masterId,note,postNum,lastPoster,id,title,createDate,masterName,lastPostDate,sortNum
+    </sql>
+
+    <!-- 查询所有数据 -->
+    <select id="list" resultType="BbsType" parameterType="java.lang.String">
+        SELECT
+        <include refid="basicColumn"/>
+        FROM bbs_type
+        <where>
+            <if test="key != null and key != ''">
+                imgUrl LIKE CONCAT(CONCAT('%',#{key}),'%')
+                or masterId LIKE CONCAT(CONCAT('%',#{key}),'%')
+                or note LIKE CONCAT(CONCAT('%',#{key}),'%')
+                or lastPoster LIKE CONCAT(CONCAT('%',#{key}),'%')
+                or title LIKE CONCAT(CONCAT('%',#{key}),'%')
+                or masterName LIKE CONCAT(CONCAT('%',#{key}),'%')
+            </if>
+        </where>
+        ORDER BY sortNum desc,id DESC
+    </select>
+
+    <!-- 根据ID查询数据 -->
+    <select id="findById" resultType="BbsType" parameterType="java.lang.Integer">
+        SELECT <include refid="basicColumn"></include> FROM bbs_type WHERE id = #{id}
+    </select>
+
+    <!-- 新建 -->
+    <insert id="add" parameterType="BbsType" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO bbs_type ( imgUrl,isUse,masterId,note,title,createDate,masterName,sortNum )
+        VALUES ( #{imgUrl},#{isUse},#{masterId},#{note},#{title},#{createDate},#{masterName},#{sortNum})
+   </insert>
+
+    <!-- 修改-->
+    <update id="modify" parameterType="BbsType">
+        UPDATE bbs_type SET imgUrl = #{imgUrl},isUse = #{isUse},masterId = #{masterId},note = #{note},title = #{title},masterName = #{masterName}
+        ,sortNum = #{sortNum}
+        WHERE  id = #{id} 
+    </update>
+
+    <!-- 删除 -->
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        DELETE FROM bbs_type WHERE  id = #{id}
+    </delete>
+
+    <!-- 批量删除 -->
+    <delete id="deleteByIds" parameterType="java.util.Arrays">
+        DELETE FROM bbs_type WHERE isUse = 0 and id IN
+        <foreach collection="ids" item="item" index="index" open="(" separator="," close=")">
+            ${item}
+        </foreach>
+    </delete>
+
+
+    <!-- 启用/禁用 -->
+    <update id="use" parameterType="java.util.Arrays">
+        UPDATE bbs_type set isUse=(isUse+1)%2 where id in
+        <foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+            ${item}
+        </foreach>
+    </update>
+
+</mapper>

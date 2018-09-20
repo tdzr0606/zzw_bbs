@@ -1,4 +1,4 @@
-package com.nature.jet.pojo.web;
+package com.nature.jet.pojo.bbs;
 
 import java.io.Serializable;
 

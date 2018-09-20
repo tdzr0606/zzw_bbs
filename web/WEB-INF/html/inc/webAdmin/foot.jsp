@@ -4,6 +4,7 @@
 <script src="/design/webAdmin/js/md5.js"></script>
 <script src="/design/webAdmin/layui.js"></script>
 <script src="/design/webAdmin/echarts.min.js"></script>
+<script src="/design/webAdmin/layui.ext.js"></script>
 
 <!-- 密码修改 表单 -->
 <form class="layui-form" id="passwordModifyForm" style="display:none;padding:10px 40px 10px 0px; ">

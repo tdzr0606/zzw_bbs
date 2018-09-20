@@ -1,6 +1,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.nature.jet.mapper.web.BbsUserMapper">
+<mapper namespace="com.nature.jet.mapper.bbs.BbsUserMapper">
 
     <!--基础 表字段定义 -->
     <sql id="basicColumn">
@@ -34,13 +34,13 @@
 
     <!-- 新建 -->
     <insert id="add" parameterType="BbsUser" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO bbs_user ( isUse,note,mobile,postNum,userName,lastLoginIP,imgUrl,lastLoginTime,backNum,loginName,loginPass,registerDate ) 
-        VALUES ( #{isUse},#{note},#{mobile},#{postNum},#{userName},#{lastLoginIP},#{imgUrl},#{lastLoginTime},#{backNum},#{loginName},#{loginPass},#{registerDate} ) 
+        INSERT INTO bbs_user ( isUse,note,mobile,userName,imgUrl,loginName,loginPass,registerDate )
+        VALUES ( #{isUse},#{note},#{mobile},#{userName},#{imgUrl},#{loginName},#{loginPass},#{registerDate} )
    </insert>
 
     <!-- 修改-->
     <update id="modify" parameterType="BbsUser">
-        UPDATE bbs_user SET isUse = #{isUse},note = #{note},mobile = #{mobile},postNum = #{postNum},userName = #{userName},lastLoginIP = #{lastLoginIP},imgUrl = #{imgUrl},lastLoginTime = #{lastLoginTime},backNum = #{backNum},loginName = #{loginName},loginPass = #{loginPass},registerDate = #{registerDate}
+        UPDATE bbs_user SET isUse = #{isUse},note = #{note},mobile = #{mobile},userName = #{userName},imgUrl = #{imgUrl},loginName = #{loginName},loginPass = #{loginPass}
         WHERE  id = #{id} 
     </update>
 
@@ -69,5 +69,26 @@
             ${item}
         </foreach>
     </update>
+
+
+    <select id="listMaster" resultType="BbsUser" parameterType="java.lang.String">
+        SELECT
+        <include refid="basicColumn"/>
+        FROM bbs_user
+        where isUse = 1
+        <if test="key != null and key != ''">
+            and (
+            note LIKE CONCAT(CONCAT('%',#{key}),'%')
+            or mobile LIKE CONCAT(CONCAT('%',#{key}),'%')
+            or userName LIKE CONCAT(CONCAT('%',#{key}),'%')
+            or lastLoginIP LIKE CONCAT(CONCAT('%',#{key}),'%')
+            or imgUrl LIKE CONCAT(CONCAT('%',#{key}),'%')
+            or lastLoginTime LIKE CONCAT(CONCAT('%',#{key}),'%')
+            or loginName LIKE CONCAT(CONCAT('%',#{key}),'%')
+            or loginPass LIKE CONCAT(CONCAT('%',#{key}),'%')
+            )
+        </if>
+        ORDER BY postNum desc , id DESC
+    </select>
 
 </mapper>
