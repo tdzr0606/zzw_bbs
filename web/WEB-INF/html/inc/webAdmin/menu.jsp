@@ -36,7 +36,7 @@
                 <dl class="layui-nav-child">
                     <dd><a href="/webAdmin/bbsUser/toPage"><i class="fa fa-angle-right"></i>&nbsp;用户管理</a></dd>
                     <dd><a href="/webAdmin/bbsType/toPage"><i class="fa fa-angle-right"></i>&nbsp;主题管理</a></dd>
-                    <dd><a href="/"><i class="fa fa-angle-right"></i>&nbsp;帖子管理</a></dd>
+                    <dd><a href="/webAdmin/bbsBbs/toPage"><i class="fa fa-angle-right"></i>&nbsp;帖子管理</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item layui-nav-itemed">

@@ -1,0 +1,65 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nature.jet.mapper.bbs.BbsBbsMapper">
+
+    <!--基础 表字段定义 -->
+    <sql id="basicColumn">
+        createId,replyId,replyNum,isPublic,sortNum,typeId,id,typeTitle,title,content,createName,createDateTime
+    </sql>
+
+    <!-- 查询楼主帖子数据 -->
+    <select id="list" resultType="BbsBbs" parameterType="java.lang.String">
+        SELECT
+        <include refid="basicColumn"/>
+        FROM bbs_bbs
+        where replyId = 0
+        <if test="key != null and key != ''">
+            and (
+            typeTitle LIKE CONCAT(CONCAT('%',#{key}),'%')
+            or title LIKE CONCAT(CONCAT('%',#{key}),'%')
+            or content LIKE CONCAT(CONCAT('%',#{key}),'%')
+            or createName LIKE CONCAT(CONCAT('%',#{key}),'%')
+            )
+        </if>
+        ORDER BY sortNum desc, id DESC
+    </select>
+
+    <!-- 根据ID查询数据 -->
+    <select id="findById" resultType="BbsBbs" parameterType="java.lang.Integer">
+        SELECT <include refid="basicColumn"></include> FROM bbs_bbs WHERE id = #{id}
+    </select>
+
+    <!-- 新建 -->
+    <insert id="add" parameterType="BbsBbs" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO bbs_bbs ( createId,replyId,replyNum,isPublic,sortNum,typeId,typeTitle,title,content,createName,createDateTime ) 
+        VALUES ( #{createId},#{replyId},#{replyNum},#{isPublic},#{sortNum},#{typeId},#{typeTitle},#{title},#{content},#{createName},#{createDateTime} ) 
+   </insert>
+
+    <!-- 修改-->
+    <update id="modify" parameterType="BbsBbs">
+        UPDATE bbs_bbs SET createId = #{createId},replyId = #{replyId},replyNum = #{replyNum},isPublic = #{isPublic},sortNum = #{sortNum},typeId = #{typeId},typeTitle = #{typeTitle},title = #{title},content = #{content},createName = #{createName},createDateTime = #{createDateTime}
+        WHERE  id = #{id} 
+    </update>
+
+    <!-- 删除 -->
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        DELETE FROM bbs_bbs WHERE  id = #{id}
+    </delete>
+
+    <!-- 批量删除 -->
+    <delete id="deleteByIds" parameterType="java.util.Arrays">
+        DELETE FROM bbs_bbs WHERE id IN
+        <foreach collection="ids" item="item" index="index" open="(" separator="," close=")">
+            ${item}
+        </foreach>
+    </delete>
+
+    <!-- 启用/禁用 -->
+    <update id="use" parameterType="java.util.Arrays">
+        UPDATE bbs_bbs set isPublic=(isPublic+1)%2 where id in
+        <foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+            ${item}
+        </foreach>
+    </update>
+
+</mapper>

@@ -94,7 +94,6 @@ public class BbsUserService
     }
 
 
-
     public Page<BbsUser> listMaster(int cusPage, int pageSize, String key)
     {
         return new Page<>(PageHelper.startPage(cusPage, pageSize).doSelectPageInfo(new ISelect()
