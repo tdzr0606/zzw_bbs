@@ -62,4 +62,15 @@
         </foreach>
     </update>
 
+
+    <!-- 获取 热议帖子 -->
+    <select id="listHotBbs" resultType="BbsBbs">
+        SELECT
+        <include refid="basicColumn"/>
+        FROM bbs_bbs
+        where replyId = 0
+        ORDER BY replyNum desc
+        limit 0,10
+    </select>
+
 </mapper>

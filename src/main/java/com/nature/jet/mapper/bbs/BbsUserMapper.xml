@@ -70,7 +70,7 @@
         </foreach>
     </update>
 
-
+    <!-- 主题版主 -->
     <select id="listMaster" resultType="BbsUser" parameterType="java.lang.String">
         SELECT
         <include refid="basicColumn"/>
@@ -89,6 +89,17 @@
             )
         </if>
         ORDER BY postNum desc , id DESC
+    </select>
+
+
+    <!-- 回帖榜-->
+    <select id="listBack" resultType="BbsUser">
+        SELECT
+        <include refid="basicColumn"/>
+        FROM bbs_user
+        where isUse = 1
+        ORDER BY backNum desc,id desc
+        limit 0,12
     </select>
 
 </mapper>

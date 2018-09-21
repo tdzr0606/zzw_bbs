@@ -71,6 +71,7 @@
                 , {field: 'title', title: '标题', width: 400, sort: true}
                 , {field: 'createName', title: '发帖人', width: 120, sort: true}
                 , {field: 'createDateTime', title: '发帖时间', width: 180, sort: true}
+                , {field: 'replyNum', title: '回帖数量', width: 80, sort: true}
                 , {field: 'isPublic', title: '状态', width: 80, sort: true}
                 , {field: 'sortNum', title: '排序', width: 80, sort: true}
             ]]

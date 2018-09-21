@@ -19,7 +19,7 @@
                 or content LIKE CONCAT(CONCAT('%',#{key}),'%')
             </if>
         </where>
-        ORDER BY id DESC
+        ORDER BY createDate desc, id DESC
     </select>
 
     <!-- 根据ID查询数据 -->

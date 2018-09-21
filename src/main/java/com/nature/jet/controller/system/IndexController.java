@@ -3,6 +3,11 @@ package com.nature.jet.controller.system;
 import com.nature.jet.component.system.CommonResult;
 import com.nature.jet.interceptor.MethodLog;
 import com.nature.jet.pojo.web.User;
+import com.nature.jet.service.bbs.BbsBbsService;
+import com.nature.jet.service.bbs.BbsTypeService;
+import com.nature.jet.service.bbs.BbsUserService;
+import com.nature.jet.service.web.FriendService;
+import com.nature.jet.service.web.NoticeService;
 import com.nature.jet.service.web.UserService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -22,9 +29,24 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class IndexController extends BaseController
 {
-
     @Autowired
     UserService userService;
+
+
+    /**
+     * bbs首页
+     */
+    @Autowired
+    BbsTypeService bbsTypeService;
+    @Autowired
+    FriendService friendService;
+    @Autowired
+    NoticeService noticeService;
+    @Autowired
+    BbsBbsService bbsBbsService;
+    @Autowired
+    BbsUserService bbsUserService;
+
 
     /**
      * bbs 首页
@@ -37,6 +59,17 @@ public class IndexController extends BaseController
     @RequestMapping(value = "/")
     public String bbsIndex()
     {
+        // 系统通知
+        request.setAttribute("notices", noticeService.listPage(1, 6, "").getData());
+        // 主题列表
+        request.setAttribute("bbstype", bbsTypeService.listPage(1, 100, "").getData());
+        // 友情链接
+        request.setAttribute("friends", friendService.listPage(1, 12, "").getData());
+        // 热议榜
+        request.setAttribute("hotbbs", bbsBbsService.listHotBbs());
+        // 回帖榜
+        request.setAttribute("backuser", bbsUserService.listBack());
+
         return "/bbs/index_jsp";
     }
 
@@ -64,7 +97,7 @@ public class IndexController extends BaseController
      * @author:竺志伟
      * @date :2018-09-06 10:31:29
      */
-    @RequestMapping(value = {"/webAdmin","/webAdmin/"})
+    @RequestMapping(value = {"/webAdmin", "/webAdmin/"})
     public String webAdmin()
     {
         return "/webAdmin/login_jsp";

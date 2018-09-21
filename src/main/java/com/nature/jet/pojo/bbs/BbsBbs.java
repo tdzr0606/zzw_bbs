@@ -1,18 +1,19 @@
 package com.nature.jet.pojo.bbs;
 
 import java.io.Serializable;
+
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.nature.jet.converter.CustomDatetimeChange;
+
 import java.sql.Timestamp;
 
 /**
- * 
  * BbsBbs
  * Author:竺志伟
  * Date:2018-09-20 13:45:48
- */ 
+ */
 
-public class BbsBbs implements Serializable 
+public class BbsBbs implements Serializable
 {
     private Integer createId;
     private Integer replyId;
@@ -25,127 +26,127 @@ public class BbsBbs implements Serializable
     private String title;
     private String content;
     private String createName;
-   @JsonSerialize(using = CustomDatetimeChange.class)
+    @JsonSerialize(using = CustomDatetimeChange.class)
     private Timestamp createDateTime;
 
     public Integer getCreateId()
     {
-      return createId;
+        return createId;
     }
 
-    public void setCreateId( Integer createId)
+    public void setCreateId(Integer createId)
     {
-      this.createId = createId;
+        this.createId = createId;
     }
 
     public Integer getReplyId()
     {
-      return replyId;
+        return replyId;
     }
 
-    public void setReplyId( Integer replyId)
+    public void setReplyId(Integer replyId)
     {
-      this.replyId = replyId;
+        this.replyId = replyId;
     }
 
     public Integer getReplyNum()
     {
-      return replyNum;
+        return replyNum;
     }
 
-    public void setReplyNum( Integer replyNum)
+    public void setReplyNum(Integer replyNum)
     {
-      this.replyNum = replyNum;
+        this.replyNum = replyNum;
     }
 
     public Boolean getIsPublic()
     {
-      return isPublic;
+        return isPublic;
     }
 
-    public void setIsPublic( Boolean isPublic)
+    public void setIsPublic(Boolean isPublic)
     {
-      this.isPublic = isPublic;
+        this.isPublic = isPublic;
     }
 
     public Integer getSortNum()
     {
-      return sortNum;
+        return sortNum;
     }
 
-    public void setSortNum( Integer sortNum)
+    public void setSortNum(Integer sortNum)
     {
-      this.sortNum = sortNum;
+        this.sortNum = sortNum;
     }
 
     public Integer getTypeId()
     {
-      return typeId;
+        return typeId;
     }
 
-    public void setTypeId( Integer typeId)
+    public void setTypeId(Integer typeId)
     {
-      this.typeId = typeId;
+        this.typeId = typeId;
     }
 
     public Integer getId()
     {
-      return id;
+        return id;
     }
 
-    public void setId( Integer id)
+    public void setId(Integer id)
     {
-      this.id = id;
+        this.id = id;
     }
 
     public String getTypeTitle()
     {
-      return typeTitle;
+        return typeTitle;
     }
 
-    public void setTypeTitle( String typeTitle)
+    public void setTypeTitle(String typeTitle)
     {
-      this.typeTitle = typeTitle;
+        this.typeTitle = typeTitle;
     }
 
     public String getTitle()
     {
-      return title;
+        return title;
     }
 
-    public void setTitle( String title)
+    public void setTitle(String title)
     {
-      this.title = title;
+        this.title = title;
     }
 
     public String getContent()
     {
-      return content;
+        return content;
     }
 
-    public void setContent( String content)
+    public void setContent(String content)
     {
-      this.content = content;
+        this.content = content;
     }
 
     public String getCreateName()
     {
-      return createName;
+        return createName;
     }
 
-    public void setCreateName( String createName)
+    public void setCreateName(String createName)
     {
-      this.createName = createName;
+        this.createName = createName;
     }
 
     public Timestamp getCreateDateTime()
     {
-      return createDateTime;
+        return createDateTime;
     }
 
-    public void setCreateDateTime( Timestamp createDateTime)
+    public void setCreateDateTime(Timestamp createDateTime)
     {
-      this.createDateTime = createDateTime;
+        this.createDateTime = createDateTime;
     }
 
 }

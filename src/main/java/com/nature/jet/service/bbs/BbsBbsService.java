@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.nature.jet.pojo.bbs.BbsBbs;
 
+import java.util.List;
+
 /**
  * BbsBbsService
  * Author:竺志伟
@@ -86,5 +88,19 @@ public class BbsBbsService
     public boolean use(String[] ids)
     {
         return bbsBbsMapper.use(ids) > 0;
+    }
+
+
+    /**
+     * 热议帖子
+     * List week list.
+     *
+     * @return the list
+     * @author:竺志伟
+     * @date :2018-09-20 15:05:48
+     */
+    public List<BbsBbs> listHotBbs()
+    {
+        return bbsBbsMapper.listHotBbs();
     }
 }

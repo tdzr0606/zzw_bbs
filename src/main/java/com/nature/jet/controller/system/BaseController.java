@@ -19,7 +19,7 @@ import java.io.StringWriter;
 public abstract class BaseController
 {
     @Autowired
-    HttpServletRequest request;
+    protected HttpServletRequest request;
     @Autowired
     CommonResult commonResult;
     protected Logger logger = LoggerFactory.getLogger(this.getClass());

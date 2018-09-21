@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.nature.jet.pojo.bbs.BbsUser;
 
+import java.util.List;
+
 /**
  * BbsUserService
  * Author:竺志伟
@@ -94,6 +96,17 @@ public class BbsUserService
     }
 
 
+    /**
+     * 主题 版主选择
+     * List master page.
+     *
+     * @param cusPage  the cus page
+     * @param pageSize the page size
+     * @param key      the key
+     * @return the page
+     * @author:竺志伟
+     * @date :2018-09-20 15:34:21
+     */
     public Page<BbsUser> listMaster(int cusPage, int pageSize, String key)
     {
         return new Page<>(PageHelper.startPage(cusPage, pageSize).doSelectPageInfo(new ISelect()
@@ -104,5 +117,18 @@ public class BbsUserService
                 bbsUserMapper.listMaster(key);
             }
         }));
+    }
+
+    /**
+     * 回帖榜
+     * List back list.
+     *
+     * @return the list
+     * @author:竺志伟
+     * @date :2018-09-20 15:37:22
+     */
+    public List<BbsUser> listBack()
+    {
+        return bbsUserMapper.listBack();
     }
 }

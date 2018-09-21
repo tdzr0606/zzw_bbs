@@ -65,4 +65,6 @@ public interface BbsUserMapper extends MyMapper<BbsUser>
 
     public List<BbsUser> listMaster(@Param(value = "key") String key);
 
+    public List<BbsUser> listBack();
+
 }

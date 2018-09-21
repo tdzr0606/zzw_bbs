@@ -60,4 +60,6 @@ public interface BbsBbsMapper extends MyMapper<BbsBbs>
 
 	public int use(@Param(value = "ids") String[] ids);
 
+	public List<BbsBbs> listHotBbs();
+
 }
