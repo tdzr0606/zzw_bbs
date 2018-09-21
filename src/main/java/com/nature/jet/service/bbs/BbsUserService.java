@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.nature.jet.pojo.bbs.BbsUser;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * BbsUserService
@@ -130,5 +132,23 @@ public class BbsUserService
     public List<BbsUser> listBack()
     {
         return bbsUserMapper.listBack();
+    }
+
+    /**
+     * bbs 登录
+     * Login bbs user.
+     *
+     * @param loginName the login name
+     * @param loginPass the login pass
+     * @return the bbs user
+     * @author:竺志伟
+     * @date :2018-09-21 23:26:03
+     */
+    public BbsUser login(String loginName,String loginPass)
+    {
+        Map<String,String> map = new HashMap<>();
+        map.put("loginName",loginName);
+        map.put("loginPass",loginPass);
+        return bbsUserMapper.login(map);
     }
 }

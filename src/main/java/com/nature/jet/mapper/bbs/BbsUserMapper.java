@@ -4,6 +4,7 @@ import com.nature.jet.utils.MyMapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 import com.nature.jet.pojo.bbs.BbsUser;
 
@@ -66,5 +67,7 @@ public interface BbsUserMapper extends MyMapper<BbsUser>
     public List<BbsUser> listMaster(@Param(value = "key") String key);
 
     public List<BbsUser> listBack();
+
+    public BbsUser login(Map<String,String> map);
 
 }

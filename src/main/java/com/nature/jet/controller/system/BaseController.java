@@ -1,6 +1,7 @@
 package com.nature.jet.controller.system;
 
 import com.nature.jet.component.system.CommonResult;
+import com.nature.jet.pojo.bbs.BbsUser;
 import com.nature.jet.pojo.web.User;
 import com.nature.jet.utils.Fields;
 import org.slf4j.Logger;
@@ -139,16 +140,6 @@ public abstract class BaseController
     }
 
 
-    protected void removeBbsLogin()
-    {
-        request.getSession().removeAttribute(Fields.SESSION_BBS_LOGIN);
-    }
-
-    protected void removeWebLogin()
-    {
-        request.getSession().removeAttribute(Fields.SESSION_WEB_LOGIN);
-    }
-
     protected void saveWebLogin(User user)
     {
         request.getSession().setAttribute(Fields.SESSION_WEB_LOGIN, user);
@@ -157,6 +148,26 @@ public abstract class BaseController
     protected User getWebLogin()
     {
         return (User) request.getSession().getAttribute(Fields.SESSION_WEB_LOGIN);
+    }
+
+    protected void removeWebLogin()
+    {
+        request.getSession().removeAttribute(Fields.SESSION_WEB_LOGIN);
+    }
+
+    protected void saveBbsLogin(BbsUser bbsUser)
+    {
+        request.getSession().setAttribute(Fields.SESSION_BBS_LOGIN, bbsUser);
+    }
+
+    protected BbsUser getBbsLogin()
+    {
+        return (BbsUser) request.getSession().getAttribute(Fields.SESSION_BBS_LOGIN);
+    }
+
+    protected void removeBbsLogin()
+    {
+        request.getSession().removeAttribute(Fields.SESSION_BBS_LOGIN);
     }
 
 }

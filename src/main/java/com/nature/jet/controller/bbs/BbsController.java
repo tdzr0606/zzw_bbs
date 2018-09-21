@@ -1,14 +1,20 @@
 package com.nature.jet.controller.bbs;
 
+import com.nature.jet.component.system.CommonResult;
 import com.nature.jet.controller.system.BaseController;
+import com.nature.jet.pojo.bbs.BbsUser;
 import com.nature.jet.service.bbs.BbsBbsService;
+import com.nature.jet.service.bbs.BbsUserService;
 import com.nature.jet.service.web.NoticeService;
 import com.nature.jet.utils.Tools;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * zzw_bbs
@@ -24,6 +30,8 @@ public class BbsController extends BaseController
     NoticeService noticeService;
     @Autowired
     BbsBbsService bbsBbsService;
+    @Autowired
+    BbsUserService bbsUserService;
 
     /**
      * 系统通知 明细页面
@@ -44,5 +52,58 @@ public class BbsController extends BaseController
         // 热议榜
         request.setAttribute("hotbbs", bbsBbsService.listHotBbs());
         return "/bbs/noticeDetail_jsp";
+    }
+
+
+    /**
+     * 进入登录页面
+     * To login page string.
+     *
+     * @return the string
+     * @author:竺志伟
+     * @date :2018-09-21 21:48:57
+     */
+    @RequestMapping(value = "/tologin")
+    public String toLoginPage()
+    {
+        return "/bbs/login_jsp";
+    }
+
+    /**
+     * 登录
+     * Login common result.
+     *
+     * @param loginName the login name
+     * @param loginPass the login pass
+     * @return the common result
+     * @author:竺志伟
+     * @date :2018-09-21 22:57:23
+     */
+    @RequestMapping(value = "/login")
+    @ResponseBody
+    public CommonResult login(@RequestParam(value = "loginName", required = true, defaultValue = "") String loginName,
+                              @RequestParam(value = "loginPass", required = true, defaultValue = "") String loginPass)
+    {
+        BbsUser bbsUser = bbsUserService.login(loginName, DigestUtils.md5Hex(loginPass));
+        if(null == bbsUser)
+        {
+            return resultFailsWrapper("用户名密码错误", null);
+        }
+        super.saveBbsLogin(bbsUser);
+        return resultSuccessWrapper("登录成功", null);
+    }
+
+    /**
+     * 进入注册页面
+     * To regist page string.
+     *
+     * @return the string
+     * @author:竺志伟
+     * @date :2018-09-21 22:55:50
+     */
+    @RequestMapping(value = "/toRegist")
+    public String toRegistPage()
+    {
+        return "/bbs/regist_jsp";
     }
 }

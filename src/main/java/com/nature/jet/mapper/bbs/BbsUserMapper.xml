@@ -102,4 +102,12 @@
         limit 0,12
     </select>
 
+    <!-- bbs 登录 -->
+    <select id="login" resultType="BbsUser" parameterType="java.util.Map">
+        select
+        <include refid="basicColumn"/>
+        from bbs_user where loginName = #{loginName} and loginPass = #{loginPass}
+        and isUse = 1
+    </select>
+
 </mapper>
