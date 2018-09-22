@@ -140,6 +140,29 @@ public abstract class BaseController
     }
 
 
+    /**
+     * 获取 登录IP
+     * Gets request ip.
+     *
+     * @return the request ip
+     * @author:竺志伟
+     * @date :2018-09-22 09:57:21
+     */
+    protected String getRequestIP()
+    {
+        String ip = null;
+        if(request.getHeader("x-forwarded-for") == null)
+        {
+            ip = request.getRemoteAddr();
+        }
+        else
+        {
+            ip = request.getHeader("x-forwarded-for");
+        }
+        return ip;
+    }
+
+
     protected void saveWebLogin(User user)
     {
         request.getSession().setAttribute(Fields.SESSION_WEB_LOGIN, user);

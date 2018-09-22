@@ -40,7 +40,7 @@
 <form class="layui-form" id="bbsUserForm" style="display:none;padding:10px 40px 10px 0px; ">
 
     <div class="layui-form-item">
-        <label class="layui-form-label">用户名</label>
+        <label class="layui-form-label">昵称</label>
         <div class="layui-input-block">
             <input type="text" name="userName" required="required" lay-verify="required" placeholder="请输入用户名" autocomplete="off"
                    class="layui-input"/>
@@ -191,7 +191,7 @@
             , cols: [[
                 {checkbox: true, fixed: true}
                 , {field: 'id', title: 'ID', width: 80, sort: true}
-                , {field: 'userName', title: '用户名', width: 120, sort: true}
+                , {field: 'userName', title: '昵称', width: 120, sort: true}
                 , {field: 'loginName', title: '登录名', width: 120, sort: true}
                 , {field: 'mobile', title: '手机', width: 120, sort: true}
                 , {field: 'registerDate', title: '注册时间', width: 180, sort: true}

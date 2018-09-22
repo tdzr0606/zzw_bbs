@@ -15,7 +15,7 @@
     {
         if (i == 0)
         {
-            window.location.href = "/webAdmin";
+            window.location.href = "/";
             clearInterval(intervalid);
         }
         document.getElementById("mes").innerHTML = i;
@@ -33,7 +33,7 @@
         页面将在<font color="red" id="mes">5</font>秒后返回首页
     </div>
     <div style="text-align: center;margin: 20px;">
-        <a href="/webAdmin"><img src="/design/webAdmin/images/ann.png"/></a>
+        <a href="/"><img src="/design/webAdmin/images/ann.png"/></a>
     </div>
 </div>
 </body>

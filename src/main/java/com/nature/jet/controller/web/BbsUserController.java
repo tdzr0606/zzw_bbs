@@ -70,12 +70,16 @@ public class BbsUserController extends BaseController
     @MethodLog(description = "BBS用户数据添加")
     public CommonResult add(BbsUser bbsUser)
     {
+        if(!bbsUserService.checkUserName(bbsUser.getUserName()))
+        {
+            return resultFailsWrapper("当前昵称已经存在",null);
+        }
         if(!bbsUserService.checkLoginName(bbsUser.getLoginName()))
         {
             return resultFailsWrapper("当前登录名已经存在", null);
         }
         bbsUser.setBackNum(0);
-        bbsUser.setIsUse(false);
+        bbsUser.setIsUse(true);
         bbsUser.setLoginPass(DigestUtils.md5Hex(bbsUser.getLoginPass()));
         bbsUser.setPostNum(0);
         bbsUser.setRegisterDate(new Date());

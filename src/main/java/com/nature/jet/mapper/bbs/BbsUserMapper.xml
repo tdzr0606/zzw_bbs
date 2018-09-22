@@ -110,4 +110,14 @@
         and isUse = 1
     </select>
 
+    <!-- 更新 登录信息 -->
+    <update id="updateLogin" parameterType="java.util.Map">
+        update bbs_user set lastLoginIP = #{lastLoginIP},lastLoginTime=#{lastLoginTime} where id = #{id}
+    </update>
+
+    <!-- 验证 昵称 -->
+    <select id="checkUserName" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select count(1) from bbs_user where userName = #{userName}
+    </select>
+
 </mapper>

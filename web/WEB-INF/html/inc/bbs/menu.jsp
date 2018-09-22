@@ -28,25 +28,31 @@
                     <a href="/tologin">登入</a>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="/">注册</a>
+                    <a href="/toRegist">注册</a>
                 </li>
             </c:if>
 
             <!-- 登入后的状态 -->
             <c:if test="${not empty sessionScope.bbsUser}">
-            <li class="layui-nav-item">
-              <a class="fly-nav-avatar" href="javascript:;">
-                <cite class="layui-hide-xs">${sessionScope.bbsUser.userName}</cite>
-                <img src="${sessionScope.bbsUser.imgUrl}">
-              </a>
-              <dl class="layui-nav-child">
-                <dd><a href="user/set.html"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
-                <%--<dd><a href="user/message.html"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</a></dd>--%>
-                <%--<dd><a href="user/home.html"><i class="layui-icon" style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a></dd>--%>
-                <hr style="margin: 5px 0;">
-                <dd><a href="/logout" style="text-align: center;">退出</a></dd>
-              </dl>
-            </li>
+                <li class="layui-nav-item">
+                    <a class="fly-nav-avatar" href="javascript:;">
+                        <cite class="layui-hide-xs">${sessionScope.bbsUser.userName}</cite>
+                        <c:if test="${not empty sessionScope.bbsUser.imgUrl}">
+                            <img src="${sessionScope.bbsUser.imgUrl}">
+                        </c:if>
+                        <c:if test="${empty sessionScope.bbsUser.imgUrl}">
+                            <img src="/design/bbs/images/header.jpg" style="width: 24px;height: 24px">
+                        </c:if>
+
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="user/set.html"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
+                            <%--<dd><a href="user/message.html"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</a></dd>--%>
+                            <%--<dd><a href="user/home.html"><i class="layui-icon" style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a></dd>--%>
+                        <hr style="margin: 5px 0;">
+                        <dd><a href="/logout" style="text-align: center;">退出</a></dd>
+                    </dl>
+                </li>
             </c:if>
         </ul>
     </div>

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.nature.jet.pojo.bbs.BbsUser;
+import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  * BbsUser 数据持久化
@@ -68,6 +69,10 @@ public interface BbsUserMapper extends MyMapper<BbsUser>
 
     public List<BbsUser> listBack();
 
-    public BbsUser login(Map<String,String> map);
+    public BbsUser login(Map<String, String> map);
+
+    public void updateLogin(Map<String, Object> map);
+
+    public int checkUserName(@Param(value = "userName") String userName);
 
 }

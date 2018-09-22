@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.nature.jet.pojo.bbs.BbsUser;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -144,11 +145,46 @@ public class BbsUserService
      * @author:竺志伟
      * @date :2018-09-21 23:26:03
      */
-    public BbsUser login(String loginName,String loginPass)
+    public BbsUser login(String loginName, String loginPass)
     {
-        Map<String,String> map = new HashMap<>();
-        map.put("loginName",loginName);
-        map.put("loginPass",loginPass);
+        Map<String, String> map = new HashMap<>();
+        map.put("loginName", loginName);
+        map.put("loginPass", loginPass);
         return bbsUserMapper.login(map);
+    }
+
+
+    /**
+     * 更新登录状态
+     * Update login.
+     *
+     * @param id            the id
+     * @param lastLoginIP   the last login ip
+     * @param lastLoginTime the last login time
+     * @author:竺志伟
+     * @date :2018-09-22 09:54:12
+     */
+    public void updateLogin(int id, String lastLoginIP, Timestamp lastLoginTime)
+    {
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("lastLoginIP", lastLoginIP);
+        map.put("lastLoginTime", lastLoginTime);
+        bbsUserMapper.updateLogin(map);
+    }
+
+
+    /**
+     * 昵称验证
+     * Check user name boolean.
+     *
+     * @param userName the user name
+     * @return the boolean
+     * @author:竺志伟
+     * @date :2018-09-22 10:18:31
+     */
+    public boolean checkUserName(String userName)
+    {
+        return bbsUserMapper.checkUserName(userName) == 0;
     }
 }
