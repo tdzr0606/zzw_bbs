@@ -5,10 +5,15 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
     <mvc:interceptors>
-        <!--用户拦截器-->
+        <!--管理端拦截器-->
         <mvc:interceptor>
             <mvc:mapping path="/webAdmin/**"/>
             <bean class="com.nature.jet.interceptor.WebAdminInterceptor"/>
+        </mvc:interceptor>
+
+        <mvc:interceptor>
+            <mvc:mapping path="/bbs/**"/>
+            <bean class="com.nature.jet.interceptor.BbsInterceptor"/>
         </mvc:interceptor>
 
         <mvc:interceptor>

@@ -37,6 +37,13 @@
 <form class="layui-form" id="logsForm" style="display:none;padding:10px 40px 10px 0px; ">
 
     <div class="layui-form-item">
+        <label class="layui-form-label">类型</label>
+        <div class="layui-input-block">
+            <input type="text" name="logsType" required="required" lay-verify="required" placeholder="请输入字段名" autocomplete="off"
+                   class="layui-input"/>
+        </div>
+    </div>
+    <div class="layui-form-item">
         <label class="layui-form-label">时间</label>
         <div class="layui-input-block">
             <input type="text" name="createTime" required="required" lay-verify="required" placeholder="请输入字段名" autocomplete="off"
@@ -119,6 +126,7 @@
             , url: '/webAdmin/logs/list'
             , cols: [[
                 {checkbox: true, fixed: true}
+                , {field: 'logsType', title: '日志类型', width: 120, sort: true}
                 , {field: 'createTime', title: '时间', width: 180, sort: true}
                 , {field: 'ip', title: 'IP', width: 180, sort: true}
                 , {field: 'loginName', title: '访问人', width: 120, sort: true}

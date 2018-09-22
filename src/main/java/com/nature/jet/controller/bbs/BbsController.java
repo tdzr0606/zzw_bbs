@@ -9,7 +9,6 @@ import com.nature.jet.service.bbs.BbsUserService;
 import com.nature.jet.service.web.NoticeService;
 import com.nature.jet.utils.Tools;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 
 /**
@@ -127,6 +125,7 @@ public class BbsController extends BaseController
      */
     @RequestMapping(value = "/regist")
     @ResponseBody
+    @MethodLog(description = "bbs端注册")
     public CommonResult regist(@RequestParam(value = "userName", required = true, defaultValue = "") String userName,
                                @RequestParam(value = "loginName", required = true, defaultValue = "") String loginName,
                                @RequestParam(value = "loginPass", required = true, defaultValue = "") String loginPass,
@@ -160,7 +159,7 @@ public class BbsController extends BaseController
                 bbsUserService.updateLogin(bbsUser.getId(), super.getRequestIP(), new Timestamp(System.currentTimeMillis()));
             }
         }
-        return resultBoolWrapper(pd, "用户注册成功", "用户注册失败", null);
-
+        return resultBoolWrapper(pd, "用户注册成功", "用户注册失败", bbsUser);
     }
+
 }

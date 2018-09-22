@@ -13,4 +13,5 @@
     <meta name="description" content="重大昆明社区">
     <link rel="stylesheet" href="/design/bbs/layui/css/layui.css">
     <link rel="stylesheet" href="/design/bbs/css/global.css">
+    <link rel="stylesheet" href="/design/webAdmin/css/layui.ext.css">
 </head>

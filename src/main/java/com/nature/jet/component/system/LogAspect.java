@@ -3,6 +3,7 @@ package com.nature.jet.component.system;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.nature.jet.controller.system.IndexController;
 import com.nature.jet.interceptor.MethodLog;
+import com.nature.jet.pojo.bbs.BbsUser;
 import com.nature.jet.pojo.web.Logs;
 import com.nature.jet.pojo.web.User;
 import com.nature.jet.service.web.LogsService;
@@ -82,13 +83,21 @@ public class LogAspect
         log.setNote((null != methodLogTemp) ? methodLogTemp.description() : "");
 
         User user = (User) request.getSession().getAttribute(Fields.SESSION_WEB_LOGIN);
+        BbsUser bbsUser = (BbsUser) request.getSession().getAttribute(Fields.SESSION_BBS_LOGIN);
         if(null != user)
         {
             log.setLoginName(user.getLoginName());
+            log.setLogsType("管理端日志");
+        }
+        else if(null != bbsUser)
+        {
+            log.setLoginName(bbsUser.getLoginName());
+            log.setLogsType("BBS端日志");
         }
         else
         {
             log.setLoginName("");
+            log.setLogsType("未知");
         }
         logsService.addNew(log);
     }

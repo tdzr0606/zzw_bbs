@@ -85,7 +85,7 @@
                 },
                 error: function (json)
                 {
-                    layer.alert("登录超时,请重新登录！", {closeBtn: 0}, function ()
+                    layer.alert("服务器连接错误", {closeBtn: 0}, function ()
                     {
                         layer.closeAll();
                         window.location.reload();

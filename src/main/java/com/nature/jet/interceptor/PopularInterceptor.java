@@ -1,6 +1,5 @@
 package com.nature.jet.interceptor;
 
-import com.nature.jet.utils.Fields;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,18 +20,6 @@ public class PopularInterceptor extends org.springframework.web.servlet.handler.
         {
             return true;
         }
-//        User admin = (User) request.getSession().getAttribute(Fields.SESSION_LOGIN);
-//        if(admin == null)
-//        {//未登录
-//            request.getSession().removeAttribute(Fields.SESSION_LOGIN);
-//            request.getSession().removeAttribute(Fields.SESSION_LOGIN_P_FUNCTION_LEFT);
-//            request.getSession().removeAttribute(Fields.SESSION_LOGIN_P_FUNCTION_TOP);
-//            request.getSession().removeAttribute(Fields.SESSION_LOGIN_S_FUNCTION);
-//            request.setAttribute("errorInfo", "登录超时或未登录,请重新登录");
-//            request.setAttribute("uri", request.getRequestURI());
-//            request.getRequestDispatcher("/popular/error").forward(request, response);
-//            return false;
-//        }
         return true;
     }
 

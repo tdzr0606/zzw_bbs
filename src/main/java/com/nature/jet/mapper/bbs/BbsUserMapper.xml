@@ -34,8 +34,9 @@
 
     <!-- 新建 -->
     <insert id="add" parameterType="BbsUser" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO bbs_user ( isUse,note,mobile,userName,imgUrl,loginName,loginPass,registerDate )
-        VALUES ( #{isUse},#{note},#{mobile},#{userName},#{imgUrl},#{loginName},#{loginPass},#{registerDate} )
+        INSERT INTO bbs_user ( isUse,note,mobile,userName,imgUrl,loginName,loginPass,registerDate,postNum,backNum )
+        VALUES (
+        #{isUse},#{note},#{mobile},#{userName},#{imgUrl},#{loginName},#{loginPass},#{registerDate},#{postNum},#{backNum})
    </insert>
 
     <!-- 修改-->

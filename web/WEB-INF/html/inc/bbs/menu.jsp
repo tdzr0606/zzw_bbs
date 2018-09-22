@@ -25,7 +25,7 @@
                     <a class="iconfont icon-touxiang layui-hide-xs" href="user/login.html"></a>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="/tologin">登入</a>
+                    <a href="/toLogin">登入</a>
                 </li>
                 <li class="layui-nav-item">
                     <a href="/toRegist">注册</a>
@@ -46,7 +46,7 @@
 
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a href="user/set.html"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
+                        <dd><a href="/bbs/toUserSet"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
                             <%--<dd><a href="user/message.html"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</a></dd>--%>
                             <%--<dd><a href="user/home.html"><i class="layui-icon" style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a></dd>--%>
                         <hr style="margin: 5px 0;">
@@ -72,12 +72,15 @@
                 style="margin-left: 60%"><span class="fly-mid"></span></li>
 
             <!-- 用户登入后显示 -->
-            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="user/index.html">我发表的贴</a></li>
-            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="user/index.html#collection">我收藏的贴</a>
+            <c:if test="${not empty sessionScope.bbsUser}">
+                <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="user/index.html">我发表的贴</a></li>
+            </c:if>
             </li>
         </ul>
-        <div class="fly-column-right layui-hide-xs">
-            <a href="jie/add.html" class="layui-btn">发表新帖</a>
-        </div>
+        <c:if test="${not empty sessionScope.bbsUser}">
+            <div class="fly-column-right layui-hide-xs">
+                <a href="jie/add.html" class="layui-btn">发表新帖</a>
+            </div>
+        </c:if>
     </div>
 </div>
