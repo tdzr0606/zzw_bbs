@@ -15,11 +15,18 @@
 <div class="layui-container">
     <div class="layui-row layui-col-space15">
         <div class="layui-col-md8 content detail">
+            <div class="fly-panel-title fly-filter">
+                <span class="layui-breadcrumb">
+                  <a href="javascript:void(0);">首页</a>
+                  <a href="javascript:void(0);">通知公告</a>
+                  <a><cite>正文</cite></a>
+                </span>
+            </div>
             <div class="fly-panel detail-box">
                 <c:if test="${not empty requestScope.notice}">
                     <h1>${requestScope.notice.title}</h1>
                     <div class="detail-about">
-                        <div class="fly-detail-user">
+                        <div class="fly-detail-user" style="text-align: right;">
                             <cite>${notice.createName}</cite>
                             &nbsp;&nbsp;
                             <span>${notice.createDate}</span>
