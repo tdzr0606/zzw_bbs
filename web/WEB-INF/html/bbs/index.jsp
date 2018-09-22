@@ -50,11 +50,11 @@
                     <c:if test="${not empty requestScope.bbstype}">
                         <c:forEach items="${requestScope.bbstype}" var="bbstype">
                             <li style="height: 60px;">
-                                <a href="javascript:void(0);" class="fly-avatar">
+                                <a href="/toBbsList?typeId=${bbstype.id}" class="fly-avatar">
                                     <img src="${bbstype.imgUrl}"/>
                                 </a>
                                 <h2>
-                                    <a href="javascript:void(0)">${bbstype.title}</a>
+                                    <a href="/toBbsList?typeId=${bbstype.id}">${bbstype.title}</a>
                                 </h2>
                                 <div class="fly-list-info">
                                     <span>${bbstype.note}</span>

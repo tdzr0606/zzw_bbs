@@ -103,4 +103,28 @@ public class BbsBbsService
     {
         return bbsBbsMapper.listHotBbs();
     }
+
+
+    /**
+     * 根据 主题类型 获取 帖子 分页信息
+     * List page by type id page.
+     *
+     * @param cusPage  the cus page
+     * @param pageSize the page size
+     * @param typeId   the type id
+     * @return the page
+     * @author:竺志伟
+     * @date :2018-09-22 15:51:01
+     */
+    public Page<BbsBbs> listPageByTypeId(int cusPage, int pageSize, int typeId)
+    {
+        return new Page<>(PageHelper.startPage(cusPage, pageSize).doSelectPageInfo(new ISelect()
+        {
+            @Override
+            public void doSelect()
+            {
+                bbsBbsMapper.listByTypeId(typeId);
+            }
+        }));
+    }
 }

@@ -73,4 +73,15 @@
         limit 0,10
     </select>
 
+
+    <!-- 根据 主题Id 获取 楼主帖子 -->
+    <select id="listByTypeId" resultType="BbsBbs" parameterType="java.lang.Integer">
+        SELECT
+        <include refid="basicColumn"/>
+        FROM bbs_bbs
+        where replyId = 0 and typeId = #{typeId} and isPublic = 1
+        ORDER BY createDateTime desc, id DESC
+    </select>
+
+
 </mapper>
