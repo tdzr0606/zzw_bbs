@@ -111,7 +111,7 @@
 
             <div class="fly-panel">
                 <div class="fly-panel-main">
-                    <a href="" target="_blank" class="fly-zanzhu" style="background-color: #393D49;">虚席以待</a>
+                    <a href="" target="_blank" class="fly-zanzhu" style="background-color: #393D49;">重大昆明社区</a>
                 </div>
             </div>
 

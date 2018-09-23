@@ -34,7 +34,7 @@
                 console.log(type == 'bar1');
                 if (type == 'bar1')
                 {
-                    layer.msg('icon是可以随便换的');
+                    layer.msg('欢迎来到重大网络教育昆明社区');
                 }
             }
         });
