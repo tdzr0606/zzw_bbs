@@ -115,4 +115,12 @@
         order by createDateTime desc,id desc
         limit 0,12
     </select>
+
+    <!-- 根据 主贴Id 获取 回复时间轴 -->
+    <select id="listSubTimeByBbsId" parameterType="java.lang.Integer" resultType="BbsBbs">
+        select
+        <include refid="basicColumn"/>
+        from bbs_bbs where replyId = #{bbsId}
+        order by createDateTime asc ,id asc
+    </select>
 </mapper>

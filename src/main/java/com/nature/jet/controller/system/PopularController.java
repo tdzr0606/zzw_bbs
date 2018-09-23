@@ -2,6 +2,7 @@ package com.nature.jet.controller.system;
 
 import com.nature.jet.component.system.Page;
 import com.nature.jet.pojo.bbs.BbsUser;
+import com.nature.jet.service.bbs.BbsBbsService;
 import com.nature.jet.service.bbs.BbsUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,8 @@ public class PopularController extends BaseController
     HttpServletRequest request;
     @Autowired
     BbsUserService bbsUserService;
+    @Autowired
+    BbsBbsService bbsBbsService;
 
 
     /**
@@ -69,5 +72,22 @@ public class PopularController extends BaseController
                                     @RequestParam(value = "key", required = false, defaultValue = "") String key)
     {
         return bbsUserService.listMaster(page, limit, key);
+    }
+
+    /**
+     * 进入 bbs 时间轴页面
+     * To bbs time string.
+     *
+     * @param id the id
+     * @return the string
+     * @author:竺志伟
+     * @date :2018-09-23 17:16:55
+     */
+    @RequestMapping(value = "/toBbsTime")
+    public String toBbsTime(@RequestParam(value = "id", required = true, defaultValue = "0") Integer id)
+    {
+        request.setAttribute("mainBbs", bbsBbsService.getInfoById(id));
+        request.setAttribute("subBbs", bbsBbsService.listSubTimeByBbsId(id));
+        return "/popular/bbsTime_jsp";
     }
 }

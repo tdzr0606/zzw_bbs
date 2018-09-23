@@ -202,4 +202,19 @@ public class BbsBbsService
     {
         return bbsBbsMapper.list12SubByUserId(userId);
     }
+
+
+    /**
+     * 根据主贴Id 获取 回帖 时间轴
+     * List sub time by bbs id list.
+     *
+     * @param bbsId the bbs id
+     * @return the list
+     * @author:竺志伟
+     * @date :2018-09-23 17:20:41
+     */
+    public List<BbsBbs> listSubTimeByBbsId(int bbsId)
+    {
+        return bbsBbsMapper.listSubTimeByBbsId(bbsId);
+    }
 }
