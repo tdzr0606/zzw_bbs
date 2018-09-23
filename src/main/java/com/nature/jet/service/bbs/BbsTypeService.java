@@ -8,6 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.nature.jet.pojo.bbs.BbsType;
 
+import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * BbsTypeService
  * Author:竺志伟
@@ -86,5 +90,15 @@ public class BbsTypeService
     public boolean use(String[] ids)
     {
         return bbsTypeMapper.use(ids) > 0;
+    }
+
+
+    public boolean updatePostNum(int id, String lastPoster)
+    {
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("lastPoster", lastPoster);
+        map.put("lastPostDate", new Timestamp(System.currentTimeMillis()));
+        return bbsTypeMapper.updatePostNum(map) == 1;
     }
 }

@@ -58,29 +58,28 @@
     </div>
 </div>
 
-<div class="fly-panel fly-column">
-    <div class="layui-container">
-        <ul class="layui-clear">
-            <li class="layui-hide-xs layui-this"><a href="/">首页</a></li>
-            <%--<li><a href="jie/index.html">提问</a></li>--%>
-            <%--<li><a href="jie/index.html">分享<span class="layui-badge-dot"></span></a></li>--%>
-            <%--<li><a href="jie/index.html">讨论</a></li>--%>
-            <%--<li><a href="jie/index.html">建议</a></li>--%>
-            <%--<li><a href="jie/index.html">公告</a></li>--%>
-            <%--<li><a href="jie/index.html">动态</a></li>--%>
-            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"
-                style="margin-left: 60%"><span class="fly-mid"></span></li>
-
-            <!-- 用户登入后显示 -->
-            <c:if test="${not empty sessionScope.bbsUser}">
+<!-- 用户登入后显示 -->
+<c:if test="${not empty sessionScope.bbsUser}">
+    <div class="fly-panel fly-column">
+        <div class="layui-container">
+            <ul class="layui-clear">
+                <li class="layui-hide-xs layui-this"><a href="/">首页</a></li>
+                    <%--<li><a href="jie/index.html">提问</a></li>--%>
+                    <%--<li><a href="jie/index.html">分享<span class="layui-badge-dot"></span></a></li>--%>
+                    <%--<li><a href="jie/index.html">讨论</a></li>--%>
+                    <%--<li><a href="jie/index.html">建议</a></li>--%>
+                    <%--<li><a href="jie/index.html">公告</a></li>--%>
+                    <%--<li><a href="jie/index.html">动态</a></li>--%>
+                <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"
+                    style="margin-left: 60%"><span class="fly-mid"></span></li>
                 <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="user/index.html">我发表的贴</a></li>
-            </c:if>
-            </li>
-        </ul>
-        <c:if test="${not empty sessionScope.bbsUser}">
+            </ul>
             <div class="fly-column-right layui-hide-xs">
                 <a href="/bbs/toNewBbs" class="layui-btn">发表新帖</a>
             </div>
-        </c:if>
+        </div>
     </div>
-</div>
+</c:if>
+<c:if test="${empty sessionScope.bbsUser}">
+    <div style="height: 10px;"></div>
+</c:if>

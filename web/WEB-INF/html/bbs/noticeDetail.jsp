@@ -17,7 +17,7 @@
         <div class="layui-col-md8 content detail">
             <div class="fly-panel-title fly-filter">
                 <span class="layui-breadcrumb">
-                  <a href="javascript:void(0);">首页</a>
+                  <a href="/">首页</a>
                   <a href="javascript:void(0);">通知公告</a>
                   <a><cite>正文</cite></a>
                 </span>
@@ -50,8 +50,8 @@
                 <c:if test="${ not empty requestScope.hotbbs}">
                     <c:forEach items="${requestScope.hotbbs}" var="bbs">
                         <dd>
-                            <a href="javascript:void(0)">${bbs.title}</a>
-                            <span><i class="iconfont icon-pinglun1"></i>${bbs.replyNum}</span>
+                            <a href="/toBbsDetail?bbsId=${bbs.id}">${bbs.title}</a>
+                            <span style="float: right"><i class="iconfont icon-pinglun1"></i>&nbsp;&nbsp;${bbs.replyNum}</span>
                         </dd>
                     </c:forEach>
                 </c:if>

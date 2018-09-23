@@ -187,4 +187,33 @@ public class BbsUserService
     {
         return bbsUserMapper.checkUserName(userName) == 0;
     }
+
+    /**
+     * 更新 回帖数量
+     * Update back num boolean.
+     *
+     * @param id the id
+     * @return the boolean
+     * @author:竺志伟
+     * @date :2018-09-23 13:56:35
+     */
+    public boolean updateBackNum(int id)
+    {
+        return bbsUserMapper.updateBackNum(id);
+    }
+
+    /**
+     * 更新发帖数量
+     * Update post num boolean.
+     *
+     * @param id the id
+     * @return the boolean
+     * @author:竺志伟
+     * @date :2018-09-23 13:57:12
+     */
+    public boolean updatePostNum(int id)
+    {
+        return bbsUserMapper.updatePostNum(id);
+    }
+
 }

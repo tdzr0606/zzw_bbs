@@ -120,5 +120,15 @@
     <select id="checkUserName" resultType="java.lang.Integer" parameterType="java.lang.String">
         select count(1) from bbs_user where userName = #{userName}
     </select>
+    
+    <!-- 更新 回帖数量 -->
+    <update id="updateBackNum" parameterType="java.lang.Integer">
+        update bbs_user set backNum = backNum + 1 where id = #{id}
+    </update>
+
+    <!-- 更新 发帖数量 -->
+    <update id="updatePostNum" parameterType="java.lang.Integer">
+        update bbs_user set postNum = postNum + 1 where id = #{id}
+    </update>
 
 </mapper>

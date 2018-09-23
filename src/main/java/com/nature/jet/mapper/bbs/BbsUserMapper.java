@@ -75,4 +75,8 @@ public interface BbsUserMapper extends MyMapper<BbsUser>
 
     public int checkUserName(@Param(value = "userName") String userName);
 
+    public boolean updateBackNum(@Param(value = "id") Integer id);
+
+    public boolean updatePostNum(@Param(value = "id") Integer id);
+
 }

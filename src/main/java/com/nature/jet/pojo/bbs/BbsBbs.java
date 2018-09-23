@@ -28,6 +28,28 @@ public class BbsBbs implements Serializable
     private String createName;
     @JsonSerialize(using = CustomDatetimeChange.class)
     private Timestamp createDateTime;
+    private Boolean isTop;
+    private String createImgUrl;
+
+    public Boolean getIsTop()
+    {
+        return isTop;
+    }
+
+    public void setIsTop(Boolean isTop)
+    {
+        isTop = isTop;
+    }
+
+    public String getCreateImgUrl()
+    {
+        return createImgUrl;
+    }
+
+    public void setCreateImgUrl(String createImgUrl)
+    {
+        this.createImgUrl = createImgUrl;
+    }
 
     public Integer getCreateId()
     {

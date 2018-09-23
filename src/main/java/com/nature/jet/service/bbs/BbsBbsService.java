@@ -127,4 +127,43 @@ public class BbsBbsService
             }
         }));
     }
+
+    /**
+     * 根据 帖子Id 获取 回帖列表
+     * List reply by bbs id page.
+     *
+     * @param cusPage  the cus page
+     * @param pageSize the page size
+     * @param bbsId    the bbs id
+     * @return the page
+     * @author:竺志伟
+     * @date :2018-09-23 10:36:37
+     */
+    public Page<BbsBbs> listReplyByBbsId(int cusPage, int pageSize, int bbsId)
+    {
+        return new Page<>(PageHelper.startPage(cusPage, pageSize).doSelectPageInfo(new ISelect()
+        {
+            @Override
+            public void doSelect()
+            {
+                bbsBbsMapper.listReplyByBbsId(bbsId);
+            }
+        }));
+    }
+
+    /**
+     * 更新 回帖数量
+     * Update reply num by id boolean.
+     *
+     * @param id the id
+     * @return the boolean
+     * @author:竺志伟
+     * @date :2018-09-23 13:33:21
+     */
+    public boolean updateReplyNumById(int id)
+    {
+        return bbsBbsMapper.updateReplyNumById(id) == 1;
+    }
+
+
 }

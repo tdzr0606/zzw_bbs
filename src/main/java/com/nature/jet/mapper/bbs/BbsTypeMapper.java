@@ -4,6 +4,7 @@ import com.nature.jet.utils.MyMapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 import com.nature.jet.pojo.bbs.BbsType;
 
@@ -60,5 +61,7 @@ public interface BbsTypeMapper extends MyMapper<BbsType>
     public int deleteById(@Param(value = "id") Integer id);
 
     public int use(@Param(value = "ids") String[] ids);
+
+    public int updatePostNum(Map<String,Object> map);
 
 }

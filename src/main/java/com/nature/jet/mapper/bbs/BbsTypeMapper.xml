@@ -65,4 +65,9 @@
         </foreach>
     </update>
 
+    <!-- 更新 发帖数量 -->
+    <update id="updatePostNum" parameterType="java.util.Map">
+        update bbs_type set postNum = postNum +1,lastPoster=#{lastPoster},lastPostDate=#{lastPostDate} where id = #{id}
+    </update>
+
 </mapper>

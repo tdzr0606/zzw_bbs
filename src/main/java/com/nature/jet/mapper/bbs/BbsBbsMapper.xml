@@ -4,7 +4,7 @@
 
     <!--基础 表字段定义 -->
     <sql id="basicColumn">
-        createId,replyId,replyNum,isPublic,sortNum,typeId,id,typeTitle,title,content,createName,createDateTime
+        createId,replyId,replyNum,isPublic,sortNum,typeId,id,typeTitle,title,content,createName,createDateTime,isTop,createImgUrl
     </sql>
 
     <!-- 查询楼主帖子数据 -->
@@ -21,7 +21,7 @@
             or createName LIKE CONCAT(CONCAT('%',#{key}),'%')
             )
         </if>
-        ORDER BY sortNum desc, id DESC
+        ORDER BY createDateTime desc, id DESC
     </select>
 
     <!-- 根据ID查询数据 -->
@@ -31,8 +31,10 @@
 
     <!-- 新建 -->
     <insert id="add" parameterType="BbsBbs" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO bbs_bbs ( createId,replyId,replyNum,isPublic,sortNum,typeId,typeTitle,title,content,createName,createDateTime ) 
-        VALUES ( #{createId},#{replyId},#{replyNum},#{isPublic},#{sortNum},#{typeId},#{typeTitle},#{title},#{content},#{createName},#{createDateTime} ) 
+        INSERT INTO bbs_bbs (
+        createId,replyId,replyNum,isPublic,sortNum,typeId,typeTitle,title,content,createName,createDateTime,isTop,createImgUrl )
+        VALUES ( #{createId},#{replyId},#{replyNum},#{isPublic},#{sortNum},#{typeId},#{typeTitle},#{title},#{content},#{createName},#{createDateTime}
+        ,#{isTop},#{createImgUrl})
    </insert>
 
     <!-- 修改-->
@@ -83,5 +85,17 @@
         ORDER BY createDateTime desc, id DESC
     </select>
 
+    <!-- 根据 bbs id 获取 回帖 列表 -->
+    <select id="listReplyByBbsId" resultType="BbsBbs" parameterType="java.lang.Integer">
+        select
+        <include refid="basicColumn"/>
+        from bbs_bbs
+        where replyId = #{bbsId}
+        order by createDateTime asc,id asc
+    </select>
 
+    <!-- 更新 回帖数量 -->
+    <update id="updateReplyNumById" parameterType="java.lang.Integer">
+        update bbs_bbs set replyNum = replyNum + 1 where id = #{id}
+    </update>
 </mapper>

@@ -16,13 +16,19 @@
 <div class="layui-container">
     <div class="layui-row layui-col-space15">
         <div class="layui-col-md8">
+            <div class="fly-panel-title fly-filter">
+                <span class="layui-breadcrumb">
+                  <a href="/">首页</a>
+                  <a><cite>${bbsType.title}</cite></a>
+                </span>
+            </div>
             <div class="fly-panel" style="margin-bottom: 0;">
                 <c:if test="${not empty requestScope.bbsPage && requestScope.count > 0}">
                     <ul class="fly-list">
                         <c:forEach var="bbs" items="${requestScope.bbsPage.data}">
                             <li style="padding-left: 20px;">
                                 <h2>
-                                    <a href="detail.html">${bbs.title}</a>
+                                    <a href="/toBbsDetail?bbsId=${bbs.id}">${bbs.title}</a>
                                 </h2>
                                 <div class="fly-list-info">
                                     <a href="javascript:void(0);" link>
@@ -34,8 +40,9 @@
                                     </span>
                                 </div>
                                 <div class="fly-list-badge">
-                                    <span class="layui-badge layui-bg-black">置顶</span>
-                                    <!--<span class="layui-badge layui-bg-red">精帖</span>-->
+                                    <c:if test="${bbs.isTop}">
+                                        <span class="layui-badge layui-bg-black">置顶</span>
+                                    </c:if>
                                 </div>
                             </li>
                         </c:forEach>
@@ -95,8 +102,8 @@
                 <c:if test="${ not empty requestScope.hotbbs}">
                     <c:forEach items="${requestScope.hotbbs}" var="bbs">
                         <dd>
-                            <a href="javascript:void(0);">${bbs.title}</a>
-                            <span><i class="iconfont icon-pinglun1"></i> ${bbs.replyNum}</span>
+                            <a href="/toBbsDetail?bbsId=${bbs.id}">${bbs.title}</a>
+                            <span style="float: right"><i class="iconfont icon-pinglun1"></i>&nbsp;&nbsp;${bbs.replyNum}</span>
                         </dd>
                     </c:forEach>
                 </c:if>

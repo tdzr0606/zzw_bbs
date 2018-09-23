@@ -65,4 +65,8 @@ public interface BbsBbsMapper extends MyMapper<BbsBbs>
 
     public List<BbsBbs> listByTypeId(@Param(value = "typeId") Integer typeId);
 
+    public List<BbsBbs> listReplyByBbsId(@Param(value = "bbsId") Integer bbsId);
+
+    public int updateReplyNumById(@Param(value = "id") Integer id);
+
 }
