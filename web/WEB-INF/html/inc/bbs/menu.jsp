@@ -79,7 +79,7 @@
         </ul>
         <c:if test="${not empty sessionScope.bbsUser}">
             <div class="fly-column-right layui-hide-xs">
-                <a href="jie/add.html" class="layui-btn">发表新帖</a>
+                <a href="/bbs/toNewBbs" class="layui-btn">发表新帖</a>
             </div>
         </c:if>
     </div>
