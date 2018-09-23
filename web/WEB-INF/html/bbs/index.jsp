@@ -83,7 +83,7 @@
                     <c:if test="${not empty requestScope.backuser}">
                         <c:forEach var="user" items="${requestScope.backuser}">
                             <dd>
-                                <a href="javascript:void(0);">
+                                <a href="/toUserInfo?id=${user.id}">
                                     <c:if test="${not empty user.imgUrl}">
                                         <img src="${user.imgUrl}"
                                              style="width: 65px;height: 65px;">

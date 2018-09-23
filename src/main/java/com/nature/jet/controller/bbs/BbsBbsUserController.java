@@ -151,4 +151,23 @@ public class BbsBbsUserController extends BaseController
         request.setAttribute("totalPage", bbsPage.getTotalPage());
         return "/bbs/userCenter_jsp";
     }
+
+
+    /**
+     * 进入 用户中心
+     * To user info string.
+     *
+     * @param id the id
+     * @return the string
+     * @author:竺志伟
+     * @date :2018-09-23 16:17:40
+     */
+    @RequestMapping(value = "/toUserInfo")
+    public String toUserInfo(@RequestParam(value = "id", required = true, defaultValue = "0") Integer id)
+    {
+        request.setAttribute("bbsUser", bbsUserService.getInfoById(id));
+        request.setAttribute("mainBbsPage", bbsBbsService.listMainByUserId(1, 12, id));
+        request.setAttribute("subBbs", bbsBbsService.list12SubByUserId(id));
+        return "/bbs/userInfo_jsp";
+    }
 }

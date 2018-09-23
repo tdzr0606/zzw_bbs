@@ -106,4 +106,13 @@
         from bbs_bbs where createId = #{userId} and isPublic = 1 and replyId = 0
         order by createDateTime desc,id desc
     </select>
+
+    <!-- 根据用户Id 获取 回复帖子 -->
+    <select id="list12SubByUserId" parameterType="java.lang.Integer" resultType="BbsBbs">
+        select
+        <include refid="basicColumn"/>
+        from bbs_bbs where createId = #{userId} and replyId != 0
+        order by createDateTime desc,id desc
+        limit 0,12
+    </select>
 </mapper>

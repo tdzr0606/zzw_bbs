@@ -71,4 +71,6 @@ public interface BbsBbsMapper extends MyMapper<BbsBbs>
 
     public List<BbsBbs> listMainByUserId(@Param(value = "userId") Integer userId);
 
+    public List<BbsBbs> list12SubByUserId(@Param(value = "userId") Integer userId);
+
 }

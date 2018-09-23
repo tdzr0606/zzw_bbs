@@ -188,4 +188,18 @@ public class BbsBbsService
             }
         }));
     }
+
+    /**
+     * 获取 最新 12条回复信息
+     * List 12 sub by user id list.
+     *
+     * @param userId the user id
+     * @return the list
+     * @author:竺志伟
+     * @date :2018-09-23 16:45:02
+     */
+    public List<BbsBbs> list12SubByUserId(int userId)
+    {
+        return bbsBbsMapper.list12SubByUserId(userId);
+    }
 }

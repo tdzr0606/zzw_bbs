@@ -184,7 +184,7 @@ public class BbsController extends BaseController
         }
         bbs.setIsPublic(true);
         bbs.setCreateDateTime(new Timestamp(System.currentTimeMillis()));
-        bbs.setTitle("回帖");
+        bbs.setTitle(mainBbs.getTitle());
         bbs.setTypeId(mainBbs.getTypeId());
         bbs.setTypeTitle(mainBbs.getTypeTitle());
         return resultBoolWrapper(bbsBusinessService.replyBbs(bbs, bbsUser), "回帖成功", "回帖失败", bbs);
