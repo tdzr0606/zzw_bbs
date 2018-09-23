@@ -69,4 +69,6 @@ public interface BbsBbsMapper extends MyMapper<BbsBbs>
 
     public int updateReplyNumById(@Param(value = "id") Integer id);
 
+    public List<BbsBbs> listMainByUserId(@Param(value = "userId") Integer userId);
+
 }

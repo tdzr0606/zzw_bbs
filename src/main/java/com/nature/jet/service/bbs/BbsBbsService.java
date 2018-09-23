@@ -166,4 +166,26 @@ public class BbsBbsService
     }
 
 
+    /**
+     * 根据用户Id 获取主帖
+     * List main by user id page.
+     *
+     * @param cusPage  the cus page
+     * @param pageSize the page size
+     * @param userId   the user id
+     * @return the page
+     * @author:竺志伟
+     * @date :2018-09-23 15:53:29
+     */
+    public Page<BbsBbs> listMainByUserId(int cusPage, int pageSize, int userId)
+    {
+        return new Page<>(PageHelper.startPage(cusPage, pageSize).doSelectPageInfo(new ISelect()
+        {
+            @Override
+            public void doSelect()
+            {
+                bbsBbsMapper.listMainByUserId(userId);
+            }
+        }));
+    }
 }

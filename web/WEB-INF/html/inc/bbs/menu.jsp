@@ -22,7 +22,7 @@
             <c:if test="${empty sessionScope.bbsUser}">
                 <!-- 未登入的状态 -->
                 <li class="layui-nav-item">
-                    <a class="iconfont icon-touxiang layui-hide-xs" href="user/login.html"></a>
+                    <a class="iconfont icon-touxiang layui-hide-xs" href="/"></a>
                 </li>
                 <li class="layui-nav-item">
                     <a href="/toLogin">登入</a>
@@ -46,9 +46,9 @@
 
                     </a>
                     <dl class="layui-nav-child">
+                        <dd><a href="/bbs/toUserCenter"><i class="layui-icon" style="margin-left: 2px; font-size: 22px;">
+                            &#xe770;</i>用户中心</a></dd>
                         <dd><a href="/bbs/toUserSet"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
-                            <%--<dd><a href="user/message.html"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</a></dd>--%>
-                            <%--<dd><a href="user/home.html"><i class="layui-icon" style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a></dd>--%>
                         <hr style="margin: 5px 0;">
                         <dd><a href="/logout" style="text-align: center;">退出</a></dd>
                     </dl>
@@ -72,7 +72,7 @@
                     <%--<li><a href="jie/index.html">动态</a></li>--%>
                 <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"
                     style="margin-left: 60%"><span class="fly-mid"></span></li>
-                <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="user/index.html">我发表的贴</a></li>
+                <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="/bbs/toUserCenter">我发表的贴</a></li>
             </ul>
             <div class="fly-column-right layui-hide-xs">
                 <a href="/bbs/toNewBbs" class="layui-btn">发表新帖</a>

@@ -1,9 +1,12 @@
 package com.nature.jet.controller.bbs;
 
 import com.nature.jet.component.system.CommonResult;
+import com.nature.jet.component.system.Page;
 import com.nature.jet.controller.system.BaseController;
 import com.nature.jet.interceptor.MethodLog;
+import com.nature.jet.pojo.bbs.BbsBbs;
 import com.nature.jet.pojo.bbs.BbsUser;
+import com.nature.jet.service.bbs.BbsBbsService;
 import com.nature.jet.service.bbs.BbsUserService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +28,8 @@ public class BbsBbsUserController extends BaseController
 
     @Autowired
     BbsUserService bbsUserService;
+    @Autowired
+    BbsBbsService bbsBbsService;
 
     /**
      * 进入 用户设置页面
@@ -121,5 +126,29 @@ public class BbsBbsUserController extends BaseController
         boolean pd = bbsUserService.modify(bbsUser);
         super.saveBbsLogin(bbsUser);
         return resultBoolWrapper(pd, "密码修改成功", "密码修改失败", bbsUser);
+    }
+
+
+    /**
+     * 进入用户中心
+     * To user center string.
+     *
+     * @param page  the page
+     * @param limit the limit
+     * @return the string
+     * @author:竺志伟
+     * @date :2018-09-23 15:33:06
+     */
+    @RequestMapping(value = "/bbs/toUserCenter")
+    public String toUserCenter(@RequestParam(value = "page", required = true, defaultValue = "1") Integer page,
+                               @RequestParam(value = "limit", required = true, defaultValue = "40") Integer limit)
+    {
+        BbsUser bbsUser = super.getBbsLogin();
+        Page<BbsBbs> bbsPage = bbsBbsService.listMainByUserId(page, limit, bbsUser.getId());
+        request.setAttribute("bbsPage", bbsPage);
+        request.setAttribute("count", bbsPage.getCount());
+        request.setAttribute("nowPage", bbsPage.getPage());
+        request.setAttribute("totalPage", bbsPage.getTotalPage());
+        return "/bbs/userCenter_jsp";
     }
 }

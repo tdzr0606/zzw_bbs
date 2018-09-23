@@ -98,4 +98,12 @@
     <update id="updateReplyNumById" parameterType="java.lang.Integer">
         update bbs_bbs set replyNum = replyNum + 1 where id = #{id}
     </update>
+
+    <!-- 根据用户Id 获取 主帖子 -->
+    <select id="listMainByUserId" parameterType="java.lang.Integer" resultType="BbsBbs">
+        select
+        <include refid="basicColumn"/>
+        from bbs_bbs where createId = #{userId} and isPublic = 1 and replyId = 0
+        order by createDateTime desc,id desc
+    </select>
 </mapper>
