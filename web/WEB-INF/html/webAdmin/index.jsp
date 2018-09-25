@@ -30,26 +30,12 @@
         </div>
         <div class="default-cont-wrapper">
             <fieldset class="layui-elem-field layui-field-title">
-                <legend>通知公告</legend>
-            </fieldset>
-            <%--<ul class="cont-news-li">--%>
-                <%--<c:forEach var="item" items="${requestScope.noticeList}" varStatus="status">--%>
-                    <%--<li class="showMessage" id="notice${item.id}">--%>
-                        <%--<a href="#"><i class="fa fa-file-text"></i>${item.title}</a>--%>
-                        <%--<span><fmt:formatDate value="${item.createDate}"--%>
-                                              <%--pattern="yyyy-MM-dd HH:mm:ss"/></span>--%>
-                    <%--</li>--%>
-                <%--</c:forEach>--%>
-            <%--</ul>--%>
-
-            <fieldset class="layui-elem-field layui-field-title">
                 <legend>快捷菜单</legend>
             </fieldset>
             <ul class="cont-menu-li cont-menu-li-user">
-                <%--<li><a href="/admin/eaReport/toPerCheckPage"><i class="fa fa-file-text-o"></i>申报材料初审</a></li>--%>
-                <%--<li><a href="/admin/eaReport/toPage"><i class="fa fa-files-o"></i>申报材料审核</a></li>--%>
-                <%--<li><a href="/admin/eaPlan/toPage"><i class="fa fa-files-o"></i>培养计划审核</a></li>--%>
-                <%--<li><a href="/admin/eaCheck/toPage"><i class="fa fa-files-o"></i>培养考核审核</a></li>--%>
+                <li><a href="/webAdmin/bbsUser/toPage"><i class="fa fa-file-text-o"></i>用户管理</a></li>
+                <li><a href="/webAdmin/bbsType/toPage"><i class="fa fa-files-o"></i>主题管理</a></li>
+                <li><a href="/webAdmin/bbsBbs/toPage"><i class="fa fa-files-o"></i>帖子管理</a></li>
             </ul>
         </div>
     </div>
