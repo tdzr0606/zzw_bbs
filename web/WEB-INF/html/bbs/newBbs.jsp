@@ -26,7 +26,7 @@
                         <form method="post" id="bbsForm" name="bbsForm">
                             <div class="layui-row layui-col-space15 layui-form-item">
                                 <div class="layui-col-md3">
-                                    <label class="layui-form-label">所在专栏</label>
+                                    <label class="layui-form-label">所属专题</label>
                                     <div class="layui-input-block">
                                         <select lay-verify="required" name="typeId" id="typeId" lay-filter="typeId">
                                             <option></option>
