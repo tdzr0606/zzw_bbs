@@ -5,6 +5,8 @@ import com.github.pagehelper.PageHelper;
 import com.nature.jet.component.system.Page;
 import com.nature.jet.mapper.bbs.BbsTypeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import com.nature.jet.pojo.bbs.BbsType;
 
@@ -31,6 +33,7 @@ public class BbsTypeService
      * @param key
      * @return
      */
+    @Cacheable(value = "bbstype")
     public Page<BbsType> listPage(int cusPage, int pageSize, String key)
     {
         return new Page<>(PageHelper.startPage(cusPage, pageSize).doSelectPageInfo(new ISelect()
@@ -49,6 +52,7 @@ public class BbsTypeService
      * @param bbsType
      * @return
      */
+    @CacheEvict(value = "bbstype", allEntries = true)
     public boolean addNew(BbsType bbsType)
     {
         return bbsTypeMapper.add(bbsType) == 1;
@@ -60,6 +64,7 @@ public class BbsTypeService
      * @param bbsType
      * @return
      */
+    @CacheEvict(value = "bbstype", allEntries = true)
     public boolean modify(BbsType bbsType)
     {
         return bbsTypeMapper.modify(bbsType) == 1;
@@ -71,6 +76,7 @@ public class BbsTypeService
      * @param ids
      * @return
      */
+    @CacheEvict(value = "bbstype", allEntries = true)
     public void deleteByIds(String[] ids)
     {
         bbsTypeMapper.deleteByIds(ids);
@@ -87,12 +93,13 @@ public class BbsTypeService
         return (BbsType) bbsTypeMapper.findById(id);
     }
 
+    @CacheEvict(value = "bbstype", allEntries = true)
     public boolean use(String[] ids)
     {
         return bbsTypeMapper.use(ids) > 0;
     }
 
-
+    @CacheEvict(value = "bbstype", allEntries = true)
     public boolean updatePostNum(int id, String lastPoster)
     {
         Map<String, Object> map = new HashMap<>();

@@ -5,6 +5,8 @@ import com.github.pagehelper.PageHelper;
 import com.nature.jet.component.system.Page;
 import com.nature.jet.mapper.web.FriendMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import com.nature.jet.pojo.web.Friend;
 
@@ -28,6 +30,7 @@ public class FriendService
      * @param key
      * @return
      */
+    @Cacheable(value = "friends")
     public Page<Friend> listPage(int cusPage, int pageSize, String key)
     {
 			return new Page<>(PageHelper.startPage(cusPage, pageSize).doSelectPageInfo(new ISelect()
@@ -43,6 +46,7 @@ public class FriendService
      * @param friend
      * @return
      */
+    @CacheEvict(value = "friends",allEntries = true)
     public boolean addNew(Friend friend)
     {
         return friendMapper.add(friend) == 1;
@@ -54,6 +58,7 @@ public class FriendService
      * @param friend
      * @return
      */
+    @CacheEvict(value = "friends",allEntries = true)
     public boolean modify(Friend friend)
     {
         return friendMapper.modify(friend) == 1;
@@ -65,6 +70,7 @@ public class FriendService
      * @param ids
      * @return
      */
+    @CacheEvict(value = "friends",allEntries = true)
     public void deleteByIds(String[] ids)
     {
         friendMapper.deleteByIds(ids);
