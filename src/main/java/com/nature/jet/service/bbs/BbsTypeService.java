@@ -12,6 +12,7 @@ import com.nature.jet.pojo.bbs.BbsType;
 
 import java.sql.Timestamp;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -33,7 +34,6 @@ public class BbsTypeService
      * @param key
      * @return
      */
-    @Cacheable(value = "bbstype")
     public Page<BbsType> listPage(int cusPage, int pageSize, String key)
     {
         return new Page<>(PageHelper.startPage(cusPage, pageSize).doSelectPageInfo(new ISelect()
@@ -107,5 +107,19 @@ public class BbsTypeService
         map.put("lastPoster", lastPoster);
         map.put("lastPostDate", new Timestamp(System.currentTimeMillis()));
         return bbsTypeMapper.updatePostNum(map) == 1;
+    }
+
+
+    /**
+     * List for index list.
+     *
+     * @return the list
+     * @author:竺志伟
+     * @date :2019-01-25 13:31:16
+     */
+    @Cacheable(value = "bbstype")
+    public List<BbsType> listForIndex()
+    {
+        return bbsTypeMapper.listForIndex();
     }
 }

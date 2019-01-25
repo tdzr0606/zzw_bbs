@@ -62,7 +62,7 @@ public class IndexController extends BaseController
         // 系统通知
         request.setAttribute("notices", noticeService.listPage(1, 6, "").getData());
         // 主题列表
-        request.setAttribute("bbstype", bbsTypeService.listPage(1, 100, "").getData());
+        request.setAttribute("bbstype", bbsTypeService.listForIndex());
         // 友情链接
         request.setAttribute("friends", friendService.listPage(1, 12, "").getData());
         // 热议榜

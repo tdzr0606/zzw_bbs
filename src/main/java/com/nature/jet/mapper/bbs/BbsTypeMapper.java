@@ -64,4 +64,6 @@ public interface BbsTypeMapper extends MyMapper<BbsType>
 
     public int updatePostNum(Map<String,Object> map);
 
+    public List<BbsType> listForIndex();
+
 }

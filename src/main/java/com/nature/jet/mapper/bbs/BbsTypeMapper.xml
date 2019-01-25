@@ -70,4 +70,11 @@
         update bbs_type set postNum = postNum +1,lastPoster=#{lastPoster},lastPostDate=#{lastPostDate} where id = #{id}
     </update>
 
+    <!-- 首页 帖子类型 -->
+    <select id="listForIndex" resultType="BbsType">
+        select
+        <include refid="basicColumn"/>
+        from bbs_type where isUse = 1 order by sortNum desc
+    </select>
+
 </mapper>
