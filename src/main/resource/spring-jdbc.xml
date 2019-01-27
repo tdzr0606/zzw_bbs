@@ -19,6 +19,8 @@
         <property name="initialSize" value="${druid.initialPoolSize}"/>
         <property name="minIdle" value="${druid.minPoolSize}"/>
         <property name="maxActive" value="${druid.maxPoolSize}"/>
+        <property name="removeAbandoned" value="true"/><!-- 对泄漏的连接 自动关闭 -->
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/> <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
     </bean>
 
     <bean id="jdbcTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

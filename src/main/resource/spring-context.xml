@@ -8,29 +8,21 @@
     <context:annotation-config/>
     <context:component-scan base-package="com.nature.jet.service,com.nature.jet.mapper,com.nature.jet.component"/>
 
-    <!-- 默认properties配置-->
-    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="locations">
-            <list>
-                <value>classpath:config.properties</value>
-            </list>
-        </property>
-        <property name="fileEncoding" value="utf-8"/>
-    </bean>
+    <!-- 加载 参数文件 -->
+    <context:property-placeholder location="classpath:config.properties,classpath:redis.properties" file-encoding="utf-8"/>
 
-    <!-- 其他properties配置 -->
-    <bean id="config" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-        <property name="locations">
-            <list>
-                <value>classpath:config.properties</value>
-            </list>
-        </property>
-        <property name="fileEncoding" value="utf-8"/>
-    </bean>
-
+    <!-- 通过 properties 工厂类加载 其他properties配置 -->
+    <!--<bean id="config" class="org.springframework.beans.factory.config.PropertiesFactoryBean">-->
+    <!--<property name="locations">-->
+    <!--<list>-->
+    <!--<value>classpath:config.properties</value>-->
+    <!--</list>-->
+    <!--</property>-->
+    <!--<property name="fileEncoding" value="utf-8"/>-->
+    <!--</bean>-->
 
     <import resource="spring-jdbc.xml"/>
-    <import resource="spring-ehcache.xml"/>
     <import resource="spring-redis.xml"/>
+    <import resource="spring-ehcache.xml"/>
 
 </beans>
